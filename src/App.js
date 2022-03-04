@@ -1,9 +1,21 @@
-import './App.css';
+import "./index.css";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import ErrorPage from "./Pages/ErrorPage";
+import Signup from "./Pages/Signup";
 
 function App() {
   return (
     <div className="App">
-      <h1>Tay Thrifts</h1>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
