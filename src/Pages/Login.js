@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Login() {
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -10,7 +11,7 @@ function Login() {
     <div className="grid grid-cols-2 h-screen">
       <div className="grid grid-cols-1 items-center justify-items-center z-10 shadow-loginFormLeft">
         <div className="w-loginForm">
-          <div className="grid grid-cols-loginFormImage items-center justify-center mb-5">
+          <div className="grid grid-cols-loginFormImage items-center mb-5 gap-3">
             <Link to="/">
               <img
                 src="images/taythrifts_logo.png"
@@ -25,26 +26,26 @@ function Login() {
               <lable className="text-gray-500">Username</lable>
               <input
                 type="text"
-                className="w-full border border-gray-300 rounded-md h-9 px-4 outline-loginForm text-sm mt-2 mb-5 text-gray-700"
+                className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm mt-2 mb-5 text-gray-700"
               />
             </div>
             <div>
               <lable className="text-gray-500">Password</lable>
               <input
                 type="password"
-                className="w-full border border-gray-300 rounded-md h-9 px-4 outline-loginForm text-sm mt-2 mb-5 text-gray-700"
+                className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm mt-2 mb-5 text-gray-700"
               />
             </div>
             <div className="grid grid-cols-2 justify-items-center">
               <div>
-                <input type="radio" /> Customer
+                <input type="radio" className="cursor-pointer" name="accountType" /> Customer
               </div>
               <div>
-                <input type="radio" /> Store
+                <input type="radio" className="cursor-pointer" name="accountType" /> Store
               </div>
             </div>
             <div className="text-center mt-5">
-              <button className="text-white bg-loginForm w-11/12 rounded-md py-2">
+              <button className="text-white bg-loginForm w-11/12 rounded-md py-2 hover:bg-btnLoginHover">
                 Log In
               </button>
             </div>
