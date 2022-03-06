@@ -16,7 +16,7 @@ function StoreNavbar(props) {
           </div>
           <div className="flex gap-3 items-center text-white">
             <div className="flex gap-2 items-center">
-                <img src={props.link} alt="taythrifts_logo" className="w-7 rounded-full" />
+                <img src="../images/sampleResto.jpg" alt="taythrifts_logo" className="w-7 h-7 object-cover rounded-full" />
                 <p>Forever 21</p>
             </div>
             <Link to="/login">Logout</Link>

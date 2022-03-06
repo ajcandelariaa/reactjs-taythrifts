@@ -16,16 +16,16 @@ function CustomerNavbar(props) {
             <Link to="/customer/cart">
               <div className="flex items-center">
                 <div>Cart</div>
-                <div className="bg-red-400 w-6 h-6 rounded-full text-xs ml-2 grid grid-cols-1 justify-items-center items-center">5</div>
+                <div className="bg-red-400 w-6 h-6 rounded-full text-xs ml-1 grid grid-cols-1 justify-items-center items-center">5</div>
               </div>
             </Link>
           </div>
           <div className="flex gap-3 items-center text-white">
             <div className="flex gap-2 items-center">
               <img
-                src={props.link}
+                src="../images/sampleCust.jpg"
                 alt="taythrifts_logo"
-                className="w-7 rounded-full"
+                className="w-7 h-7 object-cover rounded-full"
               />
               <p>Aj Candelaria</p>
             </div>

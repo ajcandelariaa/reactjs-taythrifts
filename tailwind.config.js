@@ -16,6 +16,7 @@ module.exports = {
         registrationHeader: '#4C4F6C',
         regFormBg: '#f3f3f3',
         footerBg: '#282d32',
+        itemBgHover: '#387791',
       },
       width: {
         loginForm: '45%',
