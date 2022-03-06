@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import RegistrationNavbar from "../components/RegistrationNavbar";
+import RegistrationNavbar from "../components/Navbars/RegistrationNavbar";
 
 function Signup() {
   return (

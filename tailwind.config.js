@@ -7,6 +7,7 @@ module.exports = {
       gridTemplateColumns: {
         loginFormImage: '80px auto',
         regForm: '140px auto',
+        footerGrid: '300px 300px auto',
       },
       colors: {
         loginForm: '#5a83d8',
@@ -14,6 +15,7 @@ module.exports = {
         homePage: 'linear-gradient(135deg, #172a74, #21a9af)',
         registrationHeader: '#4C4F6C',
         regFormBg: '#f3f3f3',
+        footerBg: '#282d32',
       },
       width: {
         loginForm: '45%',

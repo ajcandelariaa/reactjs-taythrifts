@@ -1,5 +1,5 @@
 import React from "react";
-import RegistrationNavbar from "../components/RegistrationNavbar";
+import RegistrationNavbar from "../components/Navbars/RegistrationNavbar";
 
 function StoreRegistration() {
   const handleSubmit = (e) => {
