@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Item from "./Item";
+import Item from "../Item";
 
 function Category(props) {
   const [items, setItems] = useState([]);
@@ -53,7 +53,7 @@ function Category(props) {
 
       <div className="grid grid-cols-4 gap-5 my-10">
         {items == null ? 'No Items for Dresses Yet' : items.map((item) => (
-          <Item key={item.id}/>
+          <Item key={item.id} actualPrice="200.00" lastPrice="100.00"/>
         ))}
       </div>
     </div>

@@ -1,11 +1,16 @@
 import React from "react";
 import CustomerNavbar from "../../components/Navbars/CustomerNavbar";
+import Transaction from "../../components/Transaction";
 
 function CustomerTransactions() {
   return (
     <div>
       <CustomerNavbar link="../images/taythrifts_logo.png" />
-      CustomerTransactions
+      <div className="container mx-auto my-10">
+        <Transaction />
+        <Transaction />
+        <Transaction />
+      </div>
     </div>
   );
 }

@@ -37,7 +37,6 @@ function App() {
           <Route path="/store/profile" element={<StoreProfile />} />
           <Route path="/store/transactions" element={<StoreTransactions />} />
 
-
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>

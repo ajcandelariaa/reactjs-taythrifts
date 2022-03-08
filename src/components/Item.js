@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Item() {
+function Item(props) {
   const [isHover, setIsHover] = useState(false);
 
   const mouseIn = () => {
@@ -9,6 +9,10 @@ function Item() {
   const mouseOut = () => {
     setIsHover(false);
   };
+
+  const nameYourPrice = () => {
+    
+  }
 
   return (
     <div className="shadow-2xl bg-white rounded-xl">
@@ -32,7 +36,7 @@ function Item() {
             <button className="text-black bg-white rounded-2xl w-40 py-1 hover:text-white hover:bg-pink-400">
               Add to Cart
             </button>
-            <button className="text-black bg-white rounded-2xl w-40 py-1 hover:text-white hover:bg-pink-400">
+            <button className="text-black bg-white rounded-2xl w-40 py-1 hover:text-white hover:bg-pink-400" onClick={nameYourPrice}>
               Name your price
             </button>
           </div>
@@ -51,8 +55,8 @@ function Item() {
           <p>Yellow Turtle Neck Dress</p>
         </div>
         <div>
-          <p>₱ 200.00</p>
-          <p>₱ 150.00</p>
+          <p>₱ {props.actualPrice}</p>
+          <p>₱ {props.lastPrice}</p>
         </div>
       </div>
     </div>

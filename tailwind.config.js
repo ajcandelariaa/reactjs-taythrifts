@@ -17,6 +17,7 @@ module.exports = {
         regFormBg: '#f3f3f3',
         footerBg: '#282d32',
         itemBgHover: '#387791',
+        sideBarMarketplace: '#42466d',
       },
       width: {
         loginForm: '45%',
