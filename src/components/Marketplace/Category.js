@@ -5,7 +5,6 @@ function Category(props) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    console.log(props.category);
     switch (props.category) {
       case "Tops":
         setItems([
@@ -40,6 +39,12 @@ function Category(props) {
           { id: 8, name: "Jane Doe" },
         ]);
         break;
+      case "Latest Products":
+        setItems(null);
+        break;
+      case "Best Seller":
+        setItems(null);
+        break;
     }
   }, [props.category]);
 
@@ -52,7 +57,7 @@ function Category(props) {
       </h1>
 
       <div className="grid grid-cols-4 gap-5 my-10">
-        {items == null ? 'No Items for Dresses Yet' : items.map((item) => (
+        {items == null ? 'No Items for ' + props.category + ' Yet' : items.map((item) => (
           <Item key={item.id} actualPrice="200.00" lastPrice="100.00"/>
         ))}
       </div>

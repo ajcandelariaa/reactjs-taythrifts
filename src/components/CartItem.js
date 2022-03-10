@@ -27,7 +27,9 @@ function CartItem() {
                     <div className='flex'>
                         <p className='pr-2'>Quantity: </p>
                         <button className='bg-gray-700 text-white w-5' onClick={decreaseQuantity}>-</button>
-                        <p className='bg-gray-300 px-6 text-center'>{quantity}</p>
+                        <div className='w-8'>
+                            <p className='bg-gray-300 text-center'>{quantity}</p>
+                        </div>
                         <button className='bg-gray-700 text-white w-5' onClick={increaseQuantity}>+</button>
                     </div>
                     <p>Category: Apparel & Accessories</p>
