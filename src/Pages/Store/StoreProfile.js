@@ -28,7 +28,7 @@ function StoreProfile() {
                 <input type="file" className="w-full" />
               </div>
               <div className="mt-5 w-52 h-52 mx-auto">
-                <img src="../images/sampleResto.jpg" className="object-cover w-full h-full" />
+                <img src="../images/sampleResto.jpg" alt="sampleResto" className="object-cover w-full h-full" />
               </div>
               <div className="text-center mt-10">
                 <button className="bg-blue-500 py-3 px-6 text-white">

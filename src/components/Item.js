@@ -33,10 +33,10 @@ function Item(props) {
 
         {isHover && (
           <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 grid grid-rows-2 gap-2">
-            <button className="text-black bg-white rounded-2xl w-40 py-1 hover:text-white hover:bg-pink-400">
+            <button className="text-black bg-white rounded-3xl w-40 py-2 hover:text-white hover:bg-itemBgHover">
               Add to Cart
             </button>
-            <button className="text-black bg-white rounded-2xl w-40 py-1 hover:text-white hover:bg-pink-400" onClick={nameYourPrice}>
+            <button className="text-black bg-white rounded-3xl w-40 py-2 hover:text-white hover:bg-itemBgHover" onClick={nameYourPrice}>
               Name your price
             </button>
           </div>
@@ -48,15 +48,15 @@ function Item(props) {
             <img
               src="../images/sampleResto.jpg"
               alt="sampleResto"
-              className="w-7 h-7 object-cover rounded-full"
+              className="w-6 h-6 object-cover rounded-full"
             />
             <p>Forever 21</p>
           </div>
-          <p>Yellow Turtle Neck Dress</p>
+          <p className="mt-1 opacity-50">Yellow Turtle Neck Dress</p>
         </div>
         <div>
           <p>₱ {props.actualPrice}</p>
-          <p>₱ {props.lastPrice}</p>
+          <p className="opacity-50 mt-1">₱ {props.lastPrice}</p>
         </div>
       </div>
     </div>

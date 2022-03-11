@@ -15,10 +15,11 @@ function Transaction() {
                 <p className='col-span-1'>Image</p>
                 <p className='col-span-3'>Product Name</p>
                 <p className='col-span-2'>Description</p>
-                <p className='col-span-2'>Supplier</p>
+                <p className='col-span-1'>Supplier</p>
                 <p className='col-span-2'>Location</p>
                 <p className='col-span-1'>Quantity</p>
-                <p className='col-span-1'>Price</p>
+                <p className='col-span-1'>Product Price</p>
+                <p className='col-span-1'>Total Price</p>
             </div>
             <TransactionItem />
             <TransactionItem />

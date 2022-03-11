@@ -13,7 +13,7 @@ function Signup() {
           Register now to add multiple brands in your cart and Get the Latest
           Trends!
         </p>
-        <Link className="underline" to="/signup/customer">Sign up as Customer</Link>
+        <Link className="underline" to="/signup-customer">Sign up as Customer</Link>
       </div>
       <br />
       <div>
@@ -23,7 +23,7 @@ function Signup() {
           Alt Wav as a platform to make it more easier upon selling out your
           products to the customers.
         </p>
-        <Link className="underline" to="/signup/store">Sign up as Store</Link>
+        <Link className="underline" to="/signup-store">Sign up as Store</Link>
       </div>
     </div>
   );

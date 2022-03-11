@@ -3,5 +3,16 @@
 }
 
 .customer-navbar .active {
-    text-decoration: underline;
+    color: white;
+    opacity: 1;
+}
+
+.store-navbar .active {
+    color: white;
+    opacity: 1;
+}
+
+.registration-navbar .active {
+    color: white;
+    opacity: 1;
 }

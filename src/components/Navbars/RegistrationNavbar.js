@@ -1,22 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function RegistrationNavbar(props) {
   return (
-    <div className="w-full bg-registrationHeader">
+    <div className="w-full bg-registrationHeader registration-navbar">
       <div>
         <nav className="container m-auto flex justify-between py-3">
-          <div className="text-white flex gap-4 items-center">
-            <Link to="/">
+          <div className="text-gray-400 flex gap-4 items-center">
+            <NavLink className="hover:text-gray-300" to="/">
               <img src={props.link} alt="taythrifts_logo" className="w-12" />
-            </Link>
-            <Link to="/">Home</Link>
-            <Link to="/signup">Registration</Link>
-            <Link to="/login">Login</Link>
+            </NavLink>
+            <NavLink className="hover:text-gray-300" to="/">Home</NavLink>
+            <NavLink className="hover:text-gray-300" to="/signup">Registration</NavLink>
+            <NavLink className="hover:text-gray-300" to="/login">Login</NavLink>
           </div>
-          <div className="flex gap-3 items-center text-white">
-            <Link to="/signup/customer">Customer Registration</Link>
-            <Link to="/signup/store">Store Registration</Link>
+          <div className="flex gap-3 items-center text-gray-400">
+            <NavLink className="hover:text-gray-300" to="/signup-customer">Customer Registration</NavLink>
+            <NavLink className="hover:text-gray-300" to="/signup-store">Store Registration</NavLink>
           </div>
         </nav>
       </div>

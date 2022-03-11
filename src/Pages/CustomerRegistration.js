@@ -82,6 +82,15 @@ function CustomerRegistration() {
                 <input type="text" className="w-full" />
               </div>
 
+              <div className="grid grid-cols-regForm gap-6 mt-5">
+                <label className="text-right">Profile Image</label>
+                <input type="file" className="w-full" />
+              </div>
+
+              <div className="flex justify-center mt-8">
+                <img src="../images/sampleCust.jpg" alt="sampleCust" className="w-52 h-52 object-cover rounded-full" />
+              </div>
+
               <div className="text-center mt-10">
                 <button className="bg-blue-500 py-3 px-6 text-white">
                   Register
