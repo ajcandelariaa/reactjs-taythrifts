@@ -73,8 +73,8 @@ function Category(props) {
       </div>
 
       <div className="grid grid-cols-4 gap-7 my-10">
-        {items == null ? 'No Items for ' + props.category + ' Yet' : items.map((item) => (
-          <Item key={item.id} actualPrice="200.00" lastPrice="100.00"/>
+        {props.items == null ? 'No Items for ' + props.category + ' Yet' : props.items.map((item) => (
+          <Item item={item}/>
         ))}
       </div>
     </div>

@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
-// import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDDXe_oX698DTCqR8uB2TBKVRbcixjr1zo",
+  apiKey: process.env.MY_FIREBASE_API_KEY,
   authDomain: "reactjs-taythrifts.firebaseapp.com",
   projectId: "reactjs-taythrifts",
   storageBucket: "reactjs-taythrifts.appspot.com",

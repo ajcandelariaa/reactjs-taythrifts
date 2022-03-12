@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function Item(props) {
   const [isHover, setIsHover] = useState(false);
 
+  console.log(props);
   const mouseIn = () => {
     setIsHover(true);
   };
@@ -22,7 +23,7 @@ function Item(props) {
         onMouseLeave={mouseOut}
       >
         <img
-          src="../images/sampleItem.jpg"
+          src={props.item.item_imageUrl}
           alt="sampleItem"
           className={
             isHover
@@ -46,17 +47,17 @@ function Item(props) {
         <div>
           <div className="flex gap-1 items-center">
             <img
-              src="../images/sampleResto.jpg"
+              src={props.item.item_imageUrl}
               alt="sampleResto"
               className="w-6 h-6 object-cover rounded-full"
             />
             <p>Forever 21</p>
           </div>
-          <p className="mt-1 opacity-50">Yellow Turtle Neck Dress</p>
+          <p className="mt-1 opacity-50">{props.item.item_name}</p>
         </div>
         <div>
-          <p>₱ {props.actualPrice}</p>
-          <p className="opacity-50 mt-1">₱ {props.lastPrice}</p>
+          <p>₱ {props.item.item_last_price}</p>
+          <p className="opacity-50 mt-1">₱ {props.item.item_last_price}</p>
         </div>
       </div>
     </div>
