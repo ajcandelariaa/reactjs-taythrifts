@@ -1,6 +1,6 @@
 import React from "react";
 import StoreNavbar from "../../components/Navbars/StoreNavbar";
-import StoreTransaction from "../../components/StoreTransaction";
+import StoreTransaction from "../../components/Store/StoreTransaction";
 
 function StoreTransactions() {
   return (

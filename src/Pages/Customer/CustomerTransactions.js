@@ -1,6 +1,6 @@
 import React from "react";
 import CustomerNavbar from "../../components/Navbars/CustomerNavbar";
-import Transaction from "../../components/Transaction";
+import Transaction from "../../components/Customer/Transaction";
 
 function CustomerTransactions() {
   return (

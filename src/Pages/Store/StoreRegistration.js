@@ -1,7 +1,7 @@
 import React from "react";
-import RegistrationNavbar from "../components/Navbars/RegistrationNavbar";
+import RegistrationNavbar from "../../components/Navbars/RegistrationNavbar";
 
-function CustomerRegistration() {
+function StoreRegistration() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -10,66 +10,29 @@ function CustomerRegistration() {
     <div>
       <RegistrationNavbar link="../images/taythrifts_logo.png" />
       <div className="w-1/2 m-auto py-16 bg-regFormBg my-10">
-        <h1 className="text-center text-xl mb-5">Customer Register Form</h1>
-        <form onClick={handleSubmit}>
+        <h1 className="text-center text-xl mb-5">Store Register Form</h1>
+        <form onSubmit={handleSubmit}>
           <div className="grid items-center justify-items-center w-full">
             <div>
               <div className="grid grid-cols-regForm gap-6 mt-5 w-full">
-                <label className="text-right">First Name</label>
+                <label className="text-right">Store Name</label>
                 <input type="text" className="w-full" />
               </div>
               <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Middle Name</label>
+                <label className="text-right">Email Address</label>
                 <input type="text" className="w-full" />
               </div>
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Last Name</label>
-                <input type="text" className="w-full" />
-              </div>
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Nickname</label>
-                <input type="text" className="w-full" />
-              </div>
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Email</label>
-                <input type="text" className="w-full" />
-              </div>
-
               <div className="grid grid-cols-regForm gap-6 mt-5">
                 <label className="text-right">Username</label>
                 <input type="text" className="w-full" />
               </div>
-
               <div className="grid grid-cols-regForm gap-6 mt-5">
                 <label className="text-right">Password</label>
                 <input type="text" className="w-full" />
               </div>
-
               <div className="grid grid-cols-regForm gap-6 mt-5">
                 <label className="text-right">Confirm Password</label>
                 <input type="text" className="w-full" />
-              </div>
-
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Birthday</label>
-                <input type="text" className="w-full" />
-              </div>
-
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Age</label>
-                <input type="text" className="w-full" />
-              </div>
-
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Gender</label>
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <input type="radio" name="age" id="" /> Male
-                  </div>
-                  <div>
-                    <input type="radio" name="age" id="" /> Female
-                  </div>
-                </div>
               </div>
 
               <div className="grid grid-cols-regForm gap-6 mt-5">
@@ -78,7 +41,7 @@ function CustomerRegistration() {
               </div>
 
               <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Address</label>
+                <label className="text-right">Store Address</label>
                 <input type="text" className="w-full" />
               </div>
 
@@ -88,7 +51,7 @@ function CustomerRegistration() {
               </div>
 
               <div className="flex justify-center mt-8">
-                <img src="../images/sampleCust.jpg" alt="sampleCust" className="w-52 h-52 object-cover rounded-full" />
+                <img src="../images/sampleResto.jpg" alt="sampleResto" className="w-52 h-52 object-cover rounded-full" />
               </div>
 
               <div className="text-center mt-10">
@@ -104,4 +67,4 @@ function CustomerRegistration() {
   );
 }
 
-export default CustomerRegistration;
+export default StoreRegistration;

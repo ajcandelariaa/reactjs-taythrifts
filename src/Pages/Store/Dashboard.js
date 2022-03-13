@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AddItem from "../../components/AddItem";
-import Inventory from "../../components/Inventory";
+import AddItem from "../../components/Store/AddItem";
+import Inventory from "../../components/Store/Inventory";
 import StoreNavbar from "../../components/Navbars/StoreNavbar";
 
 function Dashboard() {

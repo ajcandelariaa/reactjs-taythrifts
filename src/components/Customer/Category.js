@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Item from "../Item";
+import Item from "./Item";
 
 function Category(props) {
   const [items, setItems] = useState([]);
@@ -62,10 +62,9 @@ function Category(props) {
     }
   }, [props.category]);
 
-  console.log(items);
 
   return (
-    <div>
+    <div className="container mx-auto px-5">
       <div className="flex justify-center mt-10">
         <p className="text-2xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
           {props.category}
@@ -74,7 +73,7 @@ function Category(props) {
 
       <div className="grid grid-cols-4 gap-7 my-10">
         {props.items == null ? 'No Items for ' + props.category + ' Yet' : props.items.map((item) => (
-          <Item item={item}/>
+          <Item item={item} key={item.item_id}/>
         ))}
       </div>
     </div>
