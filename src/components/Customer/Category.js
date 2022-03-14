@@ -2,66 +2,11 @@ import React, { useEffect, useState } from "react";
 import Item from "./Item";
 
 function Category(props) {
-  const [items, setItems] = useState([]);
+  const [newItems, setNewItems] = useState([]);
 
   useEffect(() => {
-    switch (props.category) {
-      case "Tops":
-        setItems([
-          { id: 1, name: "John Doe" },
-          { id: 2, name: "Victor Wayne" },
-          { id: 3, name: "Jane Doe" },
-        ]);
-        break;
-      case "Pants":
-        setItems([
-          { id: 1, name: "John Doe" },
-        ]);
-        break;
-      case "Shorts":
-        setItems([
-          { id: 1, name: "John Doe" },
-          { id: 2, name: "Victor Wayne" },
-        ]);
-        break;
-      case "Dresses":
-        setItems(null);
-        break;
-      case "Others":
-        setItems([
-          { id: 1, name: "John Doe" },
-          { id: 2, name: "Victor Wayne" },
-          { id: 3, name: "Jane Doe" },
-          { id: 4, name: "Jane Doe" },
-          { id: 5, name: "Jane Doe" },
-        ]);
-        break;
-      case "Latest Products":
-        setItems(null);
-        break;
-      case "Best Seller":
-        setItems(null);
-        break;
-      default:
-        setItems([
-          { id: 1, name: "John Doe" },
-          { id: 2, name: "Victor Wayne" },
-          { id: 3, name: "Jane Doe" },
-          { id: 4, name: "Jane Doe" },
-          { id: 5, name: "Jane Doe" },
-          { id: 6, name: "Jane Doe" },
-          { id: 7, name: "Jane Doe" },
-          { id: 8, name: "Jane Doe" },
-          { id: 9, name: "Jane Doe" },
-          { id: 10, name: "Jane Doe" },
-          { id: 11, name: "Jane Doe" },
-          { id: 12, name: "Jane Doe" },
-          { id: 13, name: "Jane Doe" },
-        ]);
-        break;
-    }
+    setNewItems(props.items.filter((item) => props.category === item.item_category))
   }, [props.category]);
-
 
   return (
     <div className="container mx-auto px-5">
@@ -72,9 +17,21 @@ function Category(props) {
       </div>
 
       <div className="grid grid-cols-4 gap-7 my-10">
-        {props.items == null ? 'No Items for ' + props.category + ' Yet' : props.items.map((item) => (
-          <Item item={item} key={item.item_id}/>
-        ))}
+        {props.category === "All Products" ? (
+          <>
+            {props.items.length === 0
+              ? "No Items for " + props.category + " Yet"
+              : props.items.map((item) => (
+                  <Item item={item} key={item.item_id} />
+                ))}
+          </>
+        ) : (
+          <>
+            {newItems.length === 0
+              ? "No Items for " + props.category + " Yet"
+              : newItems.map((item) => <Item item={item} key={item.item_id} />)}
+          </>
+        )}
       </div>
     </div>
   );
