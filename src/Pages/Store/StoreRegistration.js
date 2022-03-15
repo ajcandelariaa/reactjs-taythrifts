@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import RegistrationNavbar from "../../components/Navbars/RegistrationNavbar";
+
 import { db, storage } from "../../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { toastSuccess, toastError } from '../../toaster';
+
+import { toastSuccess, toastError } from "../../toaster";
 
 function StoreRegistration() {
   const [name, setName] = useState("");
@@ -16,7 +18,6 @@ function StoreRegistration() {
   const [image, setImage] = useState("");
   const [loader, setLoader] = useState(false);
 
-  const storesCollectionRef = collection(db, "stores");
 
   const chooseImage = (e) => {
     var reader = new FileReader();
@@ -24,125 +25,203 @@ function StoreRegistration() {
     if (file) {
       setImage(file);
 
-      var reader = new FileReader();
-      reader.onload = function(){
-          document.getElementById("previewImg").src=reader.result;
-      }
+      reader.onload = function () {
+        document.getElementById("previewImg").src = reader.result;
+      };
       reader.readAsDataURL(file);
     }
   };
 
+  const validation = () => {
+    return true;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoader(true);
 
-
-    const storageRef = ref(storage, `stores/${Date.now()}${image.name}`);
-    const uploadImage = uploadBytesResumable(storageRef, image);
-    uploadImage.on("state_changed", (snapshot) => {
-        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        console.log(progress);
-      }, (error) => {
-        toastError();
-        setLoader(false);
-        console.log(error.message);
-      }, () => {
-        getDownloadURL(uploadImage.snapshot.ref)
-        .then((url) => {
-          addDoc(storesCollectionRef, {
-            name: name,
-            emailAddress: emailAddress,
-            username: username,
-            password: password,
-            contactNumber: contactNumber,
-            address: address,
-            imageUrl: url,
-            verified: false,
-          }).then(() => {
-            toastSuccess();
-            setLoader(false);
-            setName("");
-            setEmailAddress("");
-            setUsername("");
-            setPassword("");
-            setConfirmPassword("");
-            setContactNumber("");
-            setAddress("");
-            document.getElementById("previewImg").src='../images/defaultImage.png';
-            setImage(null);
-          }).catch((err) => {
-            toastError();
-            setLoader(false);
-            console.log(err.message);
-          })
-        })
-      }
-    );
+    if (validation()) {
+      const storesCollectionRef = collection(db, "stores");
+      const storageRef = ref(storage, `stores/${Date.now()}${image.name}`);
+      const uploadImage = uploadBytesResumable(storageRef, image);
+      uploadImage.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          console.log(progress);
+        },
+        (error) => {
+          toastError();
+          setLoader(false);
+          console.log(error.message);
+        },
+        () => {
+          getDownloadURL(uploadImage.snapshot.ref).then((url) => {
+            addDoc(storesCollectionRef, {
+              name: name,
+              emailAddress: emailAddress,
+              username: username,
+              password: password,
+              contactNumber: contactNumber,
+              address: address,
+              imageUrl: url,
+              verified: false,
+            })
+              .then(() => {
+                toastSuccess();
+                setLoader(false);
+                setName("");
+                setEmailAddress("");
+                setUsername("");
+                setPassword("");
+                setConfirmPassword("");
+                setContactNumber("");
+                setAddress("");
+                document.getElementById("previewImg").src =
+                  "../images/defaultImage.png";
+                setImage(null);
+              })
+              .catch((err) => {
+                toastError();
+                setLoader(false);
+                console.log(err.message);
+              });
+          });
+        }
+      );
+    } else {
+      toastError();
+      setLoader(false);
+    }
   };
 
   return (
     <div>
       <RegistrationNavbar link="../images/taythrifts_logo.png" />
-      <div className="w-1/2 m-auto py-16 bg-regFormBg my-10">
-        <h1 className="text-center text-xl mb-5">Store Register Form</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="grid items-center justify-items-center w-full">
-            <div>
-              <div className="grid grid-cols-regForm gap-6 mt-5 w-full">
+      <div className="bg-gray-300 min-h-screen max-h-full py-10">
+        <div className="w-2/3 mx-auto py-12 bg-regFormBg rounded-xl shadow-sm">
+          <div className="flex justify-center mb-5 ">
+            <p className="text-xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
+              Store Register Form
+            </p>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-2 gap-x-10 pr-10">
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5 w-full">
                 <label className="text-right">Store Name</label>
-                <input type="text" className="w-full" value={name} onChange={(e) => setName(e.target.value)} required/>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
               </div>
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Email Address</label>
-                <input type="text" className="w-full" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} required/>
-              </div>
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Username</label>
-                <input type="text" className="w-full" value={username} onChange={(e) => setUsername(e.target.value)} required/>
-              </div>
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Password</label>
-                <input type="text" className="w-full" value={password} onChange={(e) => setPassword(e.target.value)} required/>
-              </div>
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Confirm Password</label>
-                <input type="text" className="w-full" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
-              </div>
-
-              <div className="grid grid-cols-regForm gap-6 mt-5">
-                <label className="text-right">Contact Number</label>
-                <input type="text" className="w-full" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} required/>
-              </div>
-
-              <div className="grid grid-cols-regForm gap-6 mt-5">
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5">
                 <label className="text-right">Store Address</label>
-                <input type="text" className="w-full" value={address} onChange={(e) => setAddress(e.target.value)} required/>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5">
+                <label className="text-right">Email Address</label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  value={emailAddress}
+                  onChange={(e) => setEmailAddress(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5">
+                <label className="text-right">Contact Number</label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  value={contactNumber}
+                  onChange={(e) => setContactNumber(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5">
+                <label className="text-right">Username</label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5">
+                <label className="text-right">Password</label>
+                <input
+                  type="password"
+                  className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
               </div>
 
-              <div className="grid grid-cols-regForm gap-6 mt-5">
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5">
+                <label className="text-right">Confirm Password</label>
+                <input
+                  type="password"
+                  className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-regForm gap-6 items-center mt-5">
                 <label className="text-right">Profile Image</label>
-                <input type="file" className="w-full" accept="image/*" onChange={chooseImage} />
-              </div>
-
-              <div className="flex justify-center mt-8">
-                <img src='../images/defaultImage.png' id="previewImg" alt="defaultImage" className="w-52 h-52 object-cover rounded-full" />
-              </div>
-
-              <div className="text-center mt-10">
-                {loader === true ? 
-                  <>
-                    <button className="bg-gray-300 py-3 px-6 text-black cursor-wait" disabled>Submitting</button> 
-                  </> : 
-                  <>
-                    <button className="bg-blue-500 py-3 px-6 text-white">Register</button>
-                  </>
-                }
-                
+                <input
+                  type="file"
+                  className="w-full border pt-1 border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                  accept="image/*"
+                  onChange={chooseImage}
+                  required
+                />
               </div>
             </div>
-          </div>
-        </form>
+
+            <div className="flex justify-center mt-10">
+              <img
+                src="../images/defaultImage.png"
+                id="previewImg"
+                alt="defaultImage"
+                className="w-52 h-52 object-cover rounded-full shadow-md"
+              />
+            </div>
+
+            <div className="text-center mt-10">
+              {loader === true ? (
+                <>
+                  <button
+                    className="bg-gray-300 py-2 px-24 rounded-md text-black cursor-wait"
+                    disabled
+                  >
+                    Submitting...
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button className="bg-sideBarMarketplaceButtonsActive hover:bg-sideBarMarketplaceButtons py-2 px-24 rounded-md text-white">
+                    Register
+                  </button>
+                </>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

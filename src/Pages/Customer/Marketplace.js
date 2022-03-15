@@ -10,10 +10,9 @@ function Marketplace() {
   const [category, setCategory] = useState("All Products");
   const [items, setItems] = useState([]);
 
-  const itemsCollectionRef = collection(db, "items");
-  const storesCollectionRef = collection(db, "stores");
-
   useEffect(() => {
+    const itemsCollectionRef = collection(db, "items");
+    const storesCollectionRef = collection(db, "stores");
     const getItems = async () => {
       const itemData = await getDocs(itemsCollectionRef);
       const storeData = await getDocs(storesCollectionRef);
