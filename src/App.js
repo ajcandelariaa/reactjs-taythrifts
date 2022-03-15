@@ -14,6 +14,8 @@ import CustomerCart from "./Pages/Customer/CustomerCart";
 import Dashboard from "./Pages/Store/Dashboard";
 import StoreProfile from "./Pages/Store/StoreProfile";
 import StoreTransactions from "./Pages/Store/StoreTransactions";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -40,6 +42,7 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </div>
   );
 }
