@@ -1,5 +1,4 @@
 import React from "react";
-import StoreNavbar from "../../components/Navbars/StoreNavbar";
 
 function StoreProfile() {
   const handleSubmit1 = (e) => {

@@ -37,7 +37,7 @@ function CartItem() {
                     <p>Price: ₱ 200.00</p>
                 </div>
                 <div className=''>
-                    <p className='text-red-500 hover:underline cursor-pointer'><i class="fa-solid fa-trash mr-2"></i>Remove Item</p>
+                    <p className='text-red-500 hover:underline cursor-pointer'><i className="fa-solid fa-trash mr-2"></i>Remove Item</p>
                 </div>
             </div>
         </div>

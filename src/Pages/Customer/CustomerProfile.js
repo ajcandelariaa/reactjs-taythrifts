@@ -1,5 +1,4 @@
 import React from "react";
-import CustomerNavbar from "../../components/Navbars/CustomerNavbar";
 
 function CustomerProfile() {
   const handleSubmit1 = (e) => {

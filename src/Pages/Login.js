@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { collection,  getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 import { toastValidAccount, toastInvalidAccount } from "../toaster";
@@ -80,7 +80,7 @@ function Login() {
 
   return (
     <div className="grid grid-cols-2 h-screen">
-      <div className="grid grid-cols-1 items-center justify-items-center z-10 shadow-loginFormLeft">
+      <div className="grid grid-cols-1 items-center justify-items-center z-10 shadow-loginFormLeft bg-white">
         <div className="w-loginForm">
           <div className="grid grid-cols-loginFormImage items-center mb-5 gap-3">
             <Link to="/">

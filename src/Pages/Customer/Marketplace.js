@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import CustomerNavbar from "../../components/Navbars/CustomerNavbar";
 import Category from "../../components/Customer/Category";
 import MarketplaceSidebar from "../../components/Customer/MarketplaceSidebar";
 
@@ -36,7 +35,7 @@ function Marketplace() {
   }, []);
 
   return (
-    <div className="flex bg-gray-300">
+    <div className="flex">
       <MarketplaceSidebar category={category} setCategory={setCategory} />
       <Category category={category} items={items} setItems={setItems} />
     </div>

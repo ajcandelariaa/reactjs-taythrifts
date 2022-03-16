@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import AddItem from "../../components/Store/AddItem";
+import EditItem from "../../components/Store/EditItem";
 import Inventory from "../../components/Store/Inventory";
-import StoreNavbar from "../../components/Navbars/StoreNavbar";
 
 function Dashboard() {
-  const [showAdd, setShowAdd] = useState(false);
+  const [show, setShow] = useState("Default");
 
   const showAddItem = () => {
-    setShowAdd(true);
+    setShow("Add");
   };
 
   const hideAddItem = () => {
-    setShowAdd(false);
+    setShow("Default");
   };
 
   return (
     <div className="container mx-auto">
       <div className="mt-5">
-        {showAdd ? (
+        {setShow !== "Default" ? (
           <>
             <button
               className="py-2 px-3 bg-green-600 hover:bg-green-700 text-white"
               onClick={hideAddItem}
             >
-              <i class="fa-solid fa-arrow-left mr-2"></i>Go Back
+              <i className="fa-solid fa-arrow-left mr-2"></i>Go Back
             </button>
           </>
         ) : (
@@ -32,13 +32,13 @@ function Dashboard() {
               className="py-2 px-3 bg-green-600 hover:bg-green-700 text-white"
               onClick={showAddItem}
             >
-              <i class="fa-solid fa-plus mr-2"></i>Add Item
+              <i className="fa-solid fa-plus mr-2"></i>Add Item
             </button>
           </>
         )}
       </div>
 
-      {showAdd ? <AddItem setShowAdd={setShowAdd} /> : <Inventory />}
+      {show === "Add" ? <AddItem setShow={setShow} /> : show === "Edit" ? <EditItem setShow={setShow} /> : <Inventory />}
     </div>
   );
 }
