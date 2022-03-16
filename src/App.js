@@ -1,6 +1,10 @@
 import "./index.css";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import ProtectedRoutes from "./ProtectedRoutes";
+import LoginProtectedRoute from "./LoginProtectedRoute";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import ErrorPage from "./Pages/ErrorPage";
@@ -14,8 +18,9 @@ import CustomerCart from "./Pages/Customer/CustomerCart";
 import Dashboard from "./Pages/Store/Dashboard";
 import StoreProfile from "./Pages/Store/StoreProfile";
 import StoreTransactions from "./Pages/Store/StoreTransactions";
-import { ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
+import CustomerLayout from "./Layout/CustomerLayout";
+import StoreLayout from "./Layout/StoreLayout";
+import RegistrationLayout from "./Layout/RegistrationLayout";
 
 function App() {
   return (
@@ -23,21 +28,42 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route element={<LoginProtectedRoute accountType="store" />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
+          {/* <Route path="/signup" element={<Signup />} />
           <Route path="/signup-customer" element={<CustomerRegistration />} />
-          <Route path="/signup-store" element={<StoreRegistration />} />
+          <Route path="/signup-store" element={<StoreRegistration />} /> */}
+          <Route element={<RegistrationLayout />}>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup-customer" element={<CustomerRegistration />} />
+            <Route path="/signup-store" element={<StoreRegistration />} />
+          </Route>
 
-          {/* CUSTOMER PAGES */}
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/customer/profile" element={<CustomerProfile />} />
-          <Route path="/customer/transactions" element={<CustomerTransactions />} />
-          <Route path="/customer/cart" element={<CustomerCart />} />
+          <Route element={<ProtectedRoutes accountType="customer" />}>
+            {/* CUSTOMER PAGES */}
+            <Route element={<CustomerLayout />}>
+              <Route path="/marketplace" element={<Marketplace />} />
+              <Route path="/customer/profile" element={<CustomerProfile />} />
+              <Route
+                path="/customer/transactions"
+                element={<CustomerTransactions />}
+              />
+              <Route path="/customer/cart" element={<CustomerCart />} />
+            </Route>
+          </Route>
 
-          {/* STORE PAGES */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/store/profile" element={<StoreProfile />} />
-          <Route path="/store/transactions" element={<StoreTransactions />} />
+          <Route element={<ProtectedRoutes accountType="store" />}>
+            {/* STORE PAGES */}
+            <Route element={<StoreLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/store/profile" element={<StoreProfile />} />
+              <Route
+                path="/store/transactions"
+                element={<StoreTransactions />}
+              />
+            </Route>
+          </Route>
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>

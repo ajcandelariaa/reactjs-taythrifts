@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection,  getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-import { toastValidAccount, toastInvalidAccount } from '../toaster';
+import { toastValidAccount, toastInvalidAccount } from "../toaster";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -12,55 +12,70 @@ function Login() {
   const [accountType, setAccountType] = useState("");
   const [account, setAccount] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [error, setError] = useState(false);
+  const customersCollectionRef = collection(db, "customers");
+  const storesCollectionRef = collection(db, "stores");
+  const navigate = useNavigate();
 
   const validation = () => {
     return true;
-  }
+  };
+
+  const clickInput = () => {
+    setError(false);
+    console.log('clicked');
+  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoader(true);
 
-    if(validation()){
-      const customersCollectionRef = collection(db, "customers");
-      const storesCollectionRef = collection(db, "stores");
-
+    if (validation()) {
       const getCustData = async () => {
         const custData = await getDocs(customersCollectionRef);
-        const cust = custData.docs.filter((doc) => doc.data().username === username && doc.data().password === password);
-        if(cust.length == 0){
+        const cust = custData.docs.filter(
+          (doc) => doc.data().username === username && doc.data().password === password
+        ).map((doc2) => ({id: doc2.id}));
+        if (cust.length === 0) {
           toastInvalidAccount();
           setLoader(false);
+          setError(true);
         } else {
           toastValidAccount();
           setLoader(false);
+          navigate("/marketplace", { replace: true });
+          window.sessionStorage.setItem("accountType", "customer");
+          window.sessionStorage.setItem("account_id", cust[0].id);
         }
-      }
+      };
 
       const getStoreData = async () => {
         const storeData = await getDocs(storesCollectionRef);
-        const store = storeData.docs.filter((doc) => doc.data().username === username && doc.data().password === password);
-        if(store.length == 0){
+        const store = storeData.docs.filter(
+          (doc) => doc.data().username === username && doc.data().password === password
+        ).map((doc2) => ({id: doc2.id}));
+        if (store.length === 0) {
           toastInvalidAccount();
           setLoader(false);
+          setError(true);
         } else {
           toastValidAccount();
           setLoader(false);
+          navigate("/dashboard", { replace: true });
+          window.sessionStorage.setItem("accountType", "store");
+          window.sessionStorage.setItem("account_id", store[0].id);
         }
-      }
+      };
 
 
-      if(accountType == "customer"){
+
+      if (accountType === "customer") {
         getCustData();
       } else {
         getStoreData();
       }
-
-      // window.sessionStorage.setItem("accountType", "value");
-      // window.sessionStorage.setItem("account_id", "value");
-      // window.sessionStorage.getItem("key");
     }
-
   };
 
   return (
@@ -84,6 +99,7 @@ function Login() {
                 type="text"
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm mt-2 mb-5 text-gray-700"
                 value={username}
+                onClick={clickInput}
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
@@ -94,6 +110,7 @@ function Login() {
                 type="password"
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm mt-2 mb-5 text-gray-700"
                 value={password}
+                onClick={clickInput}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
@@ -106,6 +123,7 @@ function Login() {
                   name="accountType"
                   checked={accountType === "customer"}
                   required
+                  onClick={clickInput}
                   onChange={() => setAccountType("customer")}
                 />
                 Customer
@@ -116,25 +134,39 @@ function Login() {
                   className="cursor-pointer"
                   name="accountType"
                   checked={accountType === "store"}
+                  onClick={clickInput}
                   onChange={() => setAccountType("store")}
                 />
                 Store
               </div>
             </div>
+            {error === false ? (
+              <></>
+            ) : (
+              <>
+                <div className="bg-red-300 mt-5 text-center py-2 rounded-md text-gray-800">
+                  <p>Invalid Username and Password</p>
+                </div>
+              </>
+            )}
+
             <div className="text-center mt-5">
               {loader === true ? (
-                  <>
-                    <button className="text-black bg-gray-300 w-11/12 rounded-md py-2 cursor-wait" disabled>
-                      Logging In...
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button className="text-white bg-loginForm w-11/12 rounded-md py-2 hover:bg-btnLoginHover">
-                      Log In
-                    </button>
-                  </>
-                )}
+                <>
+                  <button
+                    className="text-black bg-gray-300 w-11/12 rounded-md py-2 cursor-wait"
+                    disabled
+                  >
+                    Logging In...
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button className="text-white bg-loginForm w-11/12 rounded-md py-2 hover:bg-btnLoginHover">
+                    Log In
+                  </button>
+                </>
+              )}
             </div>
             <div className="mt-9">
               <p>

@@ -1,7 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function CustomerNavbar(props) {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    window.sessionStorage.clear();
+    navigate("/login", { replace: true });
+  }
+
   return (
     <div className="w-full bg-registrationHeader">
       <div>
@@ -29,7 +36,7 @@ function CustomerNavbar(props) {
               />
               <p>Aj Candelaria</p>
             </div>
-            <NavLink className="hover:text-gray-300" to="/login">Logout</NavLink>
+            <p className="hover:text-gray-300 cursor-pointer" onClick={logout}>Logout</p>
           </div>
         </nav>
       </div>

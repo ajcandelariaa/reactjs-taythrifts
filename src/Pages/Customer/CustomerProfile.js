@@ -16,8 +16,6 @@ function CustomerProfile() {
 
   return (
     <div>
-      <CustomerNavbar link="../images/taythrifts_logo.png" />
-      
       <div className="w-1/2 m-auto py-16 bg-regFormBg my-10">
         <h1 className="text-center text-xl mb-5">Edit Profile Image</h1>
         <form onClick={handleSubmit3}>

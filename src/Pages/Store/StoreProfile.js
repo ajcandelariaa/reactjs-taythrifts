@@ -16,8 +16,6 @@ function StoreProfile() {
 
   return (
     <div>
-      <StoreNavbar link="../images/taythrifts_logo.png" />
-      
       <div className="w-1/2 m-auto py-16 bg-regFormBg my-10">
         <h1 className="text-center text-xl mb-5">Edit Store Image</h1>
         <form onSubmit={handleSubmit3}>

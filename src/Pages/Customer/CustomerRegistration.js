@@ -110,7 +110,7 @@ function CustomerRegistration() {
 
   return (
     <div>
-      <RegistrationNavbar link="../images/taythrifts_logo.png" />
+      {/* <RegistrationNavbar link="../images/taythrifts_logo.png" /> */}
 
       <div className="bg-gray-300 min-h-screen max-h-full py-10">
         <div className="w-2/3 mx-auto py-12 bg-regFormBg rounded-xl shadow-sm">

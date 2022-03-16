@@ -5,7 +5,7 @@ import RegistrationNavbar from "../components/Navbars/RegistrationNavbar";
 function Signup() {
   return (
     <div>
-      <RegistrationNavbar link="../images/taythrifts_logo.png" />
+      {/* <RegistrationNavbar link="../images/taythrifts_logo.png" /> */}
       <div>
         <p>CUSTOMER REGISTRATION</p>
         <p>
