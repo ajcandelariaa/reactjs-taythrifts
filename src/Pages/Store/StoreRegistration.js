@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-
-import { db, storage } from "../../firebase";
+import { db, storage } from "../../services/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
-import { toastSuccess, toastError } from "../../toaster";
+import { toastSuccess, toastError } from "../../helpers/Toaster";
 
 function StoreRegistration() {
   const [name, setName] = useState("");

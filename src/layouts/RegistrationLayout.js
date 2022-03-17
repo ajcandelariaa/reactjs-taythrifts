@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import RegistrationNavbar from '../components/Navbars/RegistrationNavbar'
+import RegistrationNavbar from '../components/navbars/RegistrationNavbar'
 
 function RegistrationLayout() {
   return (

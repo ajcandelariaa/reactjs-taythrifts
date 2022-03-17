@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AddItem from "../../components/Store/AddItem";
-import EditItem from "../../components/Store/EditItem";
-import Inventory from "../../components/Store/Inventory";
+import AddItem from "../../components/store/AddItem";
+import EditItem from "../../components/store/EditItem";
+import Inventory from "../../components/store/Inventory";
 
 function Dashboard() {
   const [show, setShow] = useState("Default");
@@ -17,7 +17,7 @@ function Dashboard() {
   return (
     <div className="container mx-auto">
       <div className="mt-5">
-        {setShow !== "Default" ? (
+        {show !== "Default" ? (
           <>
             <button
               className="py-2 px-3 bg-green-600 hover:bg-green-700 text-white"

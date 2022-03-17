@@ -1,5 +1,5 @@
 import React from "react";
-import StoreTransaction from "../../components/Store/StoreTransaction";
+import StoreTransaction from "../../components/store/StoreTransaction";
 
 function StoreTransactions() {
   return (

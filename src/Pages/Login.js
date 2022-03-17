@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
-
-import { toastValidAccount, toastInvalidAccount } from "../toaster";
+import { db } from "../services/Firebase";
+import { toastValidAccount, toastInvalidAccount } from "../helpers/Toaster";
 
 function Login() {
   const [username, setUsername] = useState("");

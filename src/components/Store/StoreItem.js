@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ConfirmDialog from "../../components/ConfirmDialog";
-import { toastSuccess } from "../../toaster";
-
+import ConfirmDialog from "../../helpers/ConfirmDialog";
+import { toastSuccess } from "../../helpers/Toaster";
 import { deleteDoc, collection, doc } from "firebase/firestore";
-import { db, storage } from "../../firebase";
+import { db, storage } from "../../services/Firebase";
 
 function StoreItem(props) {
   const [modal, setModal] = useState(false);

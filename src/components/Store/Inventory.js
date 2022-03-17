@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StoreItem from "./StoreItem";
-
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../services/Firebase";
 
 function Inventory() {
   const [items, setItems] = useState([]);

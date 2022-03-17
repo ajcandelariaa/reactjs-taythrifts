@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Category from "../../components/Customer/Category";
-import MarketplaceSidebar from "../../components/Customer/MarketplaceSidebar";
-
+import Category from "../../components/customer/Category";
+import MarketplaceSidebar from "../../components/customer/MarketplaceSidebar";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../services/Firebase";
 
 function Marketplace() {
   const [category, setCategory] = useState("All Products");

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../services/Firebase";
 
 function CustomerNavbar(props) {
   const [nickname, setNickname] = useState("");

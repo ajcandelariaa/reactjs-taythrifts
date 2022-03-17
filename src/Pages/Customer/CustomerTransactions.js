@@ -1,5 +1,5 @@
 import React from "react";
-import Transaction from "../../components/Customer/Transaction";
+import Transaction from "../../components/customer/Transaction";
 
 function CustomerTransactions() {
   return (

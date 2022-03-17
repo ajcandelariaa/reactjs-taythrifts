@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import HomeNavbar from "../components/Navbars/HomeNavbar";
+import HomeNavbar from "../components/navbars/HomeNavbar";
 
 function Home() {
   return (
