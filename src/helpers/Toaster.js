@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 
-// REGISTRATION TOAST
-export const toastSuccess = () => {
+export const toastSuccess = (props) => {
   toast.success("Form Submitted", {
     position: "top-center",
     autoClose: 2500,
@@ -12,7 +11,7 @@ export const toastSuccess = () => {
     progress: undefined,
   });
 };
-export const toastError = () => {
+export const toastError = (props) => {
   toast.error("Error Submitting Form", {
     position: "top-center",
     autoClose: 2500,

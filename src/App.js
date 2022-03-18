@@ -37,34 +37,29 @@ function App() {
             <Route path="/signup-store" element={<StoreRegistration />} />
           </Route>
 
+          {/* CUSTOMER PAGES */}
           <Route element={<ProtectedRoutes accountType="customer" />}>
-            {/* CUSTOMER PAGES */}
             <Route element={<CustomerLayout />}>
               <Route path="/marketplace" element={<Marketplace />} />
-              <Route path="/customer/profile" element={<CustomerProfile />} />
-              <Route
-                path="/customer/transactions"
-                element={<CustomerTransactions />}
-              />
+              <Route path="/customer/profile/:username" element={<CustomerProfile />} />
+              <Route path="/customer/transactions" element={<CustomerTransactions />}/>
               <Route path="/customer/cart" element={<CustomerCart />} />
             </Route>
           </Route>
 
+          {/* STORE PAGES */}
           <Route element={<ProtectedRoutes accountType="store" />}>
-            {/* STORE PAGES */}
             <Route element={<StoreLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/store/profile" element={<StoreProfile />} />
-              <Route
-                path="/store/transactions"
-                element={<StoreTransactions />}
-              />
+              <Route path="/store/profile/:username" element={<StoreProfile />} />
+              <Route path="/store/transactions" element={<StoreTransactions />} />
             </Route>
           </Route>
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
+      
       <ToastContainer
         position="top-center"
         autoClose={2500}

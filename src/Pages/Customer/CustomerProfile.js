@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { doc, getDoc, updateDoc, collection, onSnapshot } from "firebase/firestore";
 
 function CustomerProfile() {
+
   const handleSubmit1 = (e) => {
     e.preventDefault();
   };
@@ -12,6 +14,9 @@ function CustomerProfile() {
   const handleSubmit3 = (e) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+  }, [])
 
   return (
     <div>

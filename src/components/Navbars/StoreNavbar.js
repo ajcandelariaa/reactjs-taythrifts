@@ -5,6 +5,7 @@ import { db } from "../../services/Firebase";
 
 function StoreNavbar(props) {
   const [nickname, setNickname] = useState("");
+  const [username, setUsername] = useState("");
   const [imageUrl, setImageUrl] = useState("../../images/defaultImage.png");
   const navigate = useNavigate();
   const accountId = window.sessionStorage.getItem("account_id");
@@ -24,10 +25,12 @@ function StoreNavbar(props) {
         .map((doc2) => ({
           nickname: doc2.data().name,
           imageUrl: doc2.data().imageUrl,
+          username: doc2.data().username,
         }));
 
       setImageUrl(accountInfo[0].imageUrl);
       setNickname(accountInfo[0].nickname);
+      setUsername(accountInfo[0].username);
     };
 
     getAccountInfo();
@@ -44,7 +47,7 @@ function StoreNavbar(props) {
             <NavLink className="hover:text-gray-300" to="/dashboard">
               Dashboard
             </NavLink>
-            <NavLink className="hover:text-gray-300" to="/store/profile">
+            <NavLink className="hover:text-gray-300" to={"/store/profile/"+username}>
               Profile
             </NavLink>
             <NavLink

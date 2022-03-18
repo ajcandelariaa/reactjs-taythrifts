@@ -1,30 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import StoreItem from "./StoreItem";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { db } from "../../services/Firebase";
 
-function Inventory() {
-  const [items, setItems] = useState([]);
-  const accountId = window.sessionStorage.getItem("account_id");
-
-  useEffect(() => {
-    const itemsCollection = collection(db, "items");
-    const q = query(
-      itemsCollection,
-      where("store_id", "==", accountId),
-      orderBy("created_at", "desc")
-    );
-
-    const getItems = async () => {
-      const itemData = await getDocs(q);
-      setItems(
-        itemData.docs.map((doc2) => ({ ...doc2.data(), item_id: doc2.id }))
-      );
-    };
-
-    getItems();
-  }, []);
-
+function Inventory({items, showEditItem}) {
   return (
     <div className="mt-5">
       <div className="grid grid-cols-12 gap-4 w-full justify-items-center items-center font-bold bg-black text-white py-2">
@@ -40,7 +17,7 @@ function Inventory() {
 
       {items.length === 0
         ? "You have no added items yet"
-        : items.map((item) => <StoreItem item={item} key={item.item_id} />)}
+        : items.map((item) => <StoreItem item={item} key={item.item_id} showEditItem={showEditItem} />)}
     </div>
   );
 }

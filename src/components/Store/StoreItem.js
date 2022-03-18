@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from "react";
 import ConfirmDialog from "../../helpers/ConfirmDialog";
 import { toastSuccess } from "../../helpers/Toaster";
-import { deleteDoc, collection, doc } from "firebase/firestore";
-import { db, storage } from "../../services/Firebase";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../services/Firebase";
 
-function StoreItem(props) {
+function StoreItem({item, showEditItem}) {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [accept, setAccepted] = useState(false);
-
-  const itemDoc = doc(db, "items", props.item.item_id);
-  
+  const itemDoc = doc(db, "items", item.item_id);
 
   const editClicked = () => {
-    // setModal(true);
-    // setMessage("Are you sure you want to edit this item?");
+    showEditItem(item.item_id);
   };
-
   const deleteClicked = () => {
     setModal(true);
     setMessage("Are you sure you want to delete this item?");
   };
 
+  const deleteItem = async () => {
+    await deleteDoc(itemDoc);
+    toastSuccess();
+    setAccepted(false);
+    setMessage("");
+  }
+
   useEffect(() => {
     if (accept) {
-      deleteDoc(itemDoc).then(() => {
-        toastSuccess();
-        setAccepted(false);
-        setMessage("");
-      })
+      deleteItem();
     }
   }, [accept]);
 
@@ -38,20 +37,20 @@ function StoreItem(props) {
       <div className="grid grid-cols-12 gap-4 my-1 w-full justify-items-center items-center">
         <img
           className="col-span-1 w-14 h-14 object-cover"
-          src={props.item.item_imageUrl}
+          src={item.item_imageUrl}
           alt="sampleItem"
         />
-        <p className="col-span-3">{props.item.item_name}</p>
-        <p className="col-span-2">{props.item.item_desc}</p>
-        <p className="col-span-2">{props.item.item_category}</p>
-        <p className="col-span-1">₱ {props.item.item_price}</p>
+        <p className="col-span-3">{item.item_name}</p>
+        <p className="col-span-2">{item.item_desc}</p>
+        <p className="col-span-2">{item.item_category}</p>
+        <p className="col-span-1">₱ {item.item_price}</p>
         <p className="col-span-1">
-          {props.item.item_last_price === null
+          {item.item_last_price === null
             ? "N/A"
-            : `₱ ${props.item.item_last_price}`}
+            : `₱ ${item.item_last_price}`}
         </p>
         <p className="col-span-1">
-          {new Date(props.item.created_at.seconds * 1000).toLocaleDateString(
+          {new Date(item.created_at.seconds * 1000).toLocaleDateString(
             "en-US"
           )}
         </p>

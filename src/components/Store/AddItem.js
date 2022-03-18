@@ -4,13 +4,13 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { toastSuccess, toastError } from '../../helpers/Toaster';
 
-function AddItem(props) {
+function AddItem() {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [actualPrice, setActualPrice] = useState(0);
   const [lastPrice, setLastPrice] = useState(null);
   const [category, setCategory] = useState("Tops");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [loader, setLoader] = useState(false);
   const accountId = window.sessionStorage.getItem("account_id");
 
@@ -34,10 +34,6 @@ function AddItem(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoader(true);
-
-    if(lastPrice == null){
-      setLastPrice(null);
-    }
 
     if(validation()){
       const itemsCollection = collection(db, "items");

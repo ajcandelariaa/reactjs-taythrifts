@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddItem from "../../components/store/AddItem";
 import EditItem from "../../components/store/EditItem";
 import Inventory from "../../components/store/Inventory";
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { db } from "../../services/Firebase";
 
 function Dashboard() {
+  const [items, setItems] = useState([]);
   const [show, setShow] = useState("Default");
+  const [itemId, setItemId] = useState("Default");
+  const accountId = window.sessionStorage.getItem("account_id");
 
-  const showAddItem = () => {
-    setShow("Add");
-  };
+  const showAddItem = () => setShow("Add");
+  const showDefault = () => setShow("Default");
+  const showEditItem = (id) => {
+    setShow("Edit"); 
+    setItemId(id);
+  }
 
-  const hideAddItem = () => {
-    setShow("Default");
-  };
+  console.log(show);
+
+  useEffect(() => {
+  const itemsCollection = collection(db, "items");
+    const q = query(itemsCollection, where("store_id", "==", accountId), orderBy("created_at", "desc"));
+    const unsub = onSnapshot(q, querySnapsot => {
+      let itemsArray = []
+      querySnapsot.forEach(doc => {
+        itemsArray.push({...doc.data(), item_id: doc.id})
+      });
+      setItems(itemsArray);
+    });
+    return () => unsub();
+  }, []);
 
   return (
     <div className="container mx-auto">
@@ -21,7 +40,7 @@ function Dashboard() {
           <>
             <button
               className="py-2 px-3 bg-green-600 hover:bg-green-700 text-white"
-              onClick={hideAddItem}
+              onClick={showDefault}
             >
               <i className="fa-solid fa-arrow-left mr-2"></i>Go Back
             </button>
@@ -38,7 +57,13 @@ function Dashboard() {
         )}
       </div>
 
-      {show === "Add" ? <AddItem setShow={setShow} /> : show === "Edit" ? <EditItem setShow={setShow} /> : <Inventory />}
+      {show === "Add" ? (
+        <AddItem />
+      ) : show === "Edit" ? (
+        <EditItem showDefault={showDefault} itemId={itemId}  />
+      ) : (
+        <Inventory items={items} showEditItem={showEditItem} />
+      )}
     </div>
   );
 }
