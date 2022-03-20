@@ -14,7 +14,7 @@ function Item(props) {
   const nameYourPrice = () => {};
 
   useEffect(() => {
-    if (props.item.item_last_price != null) {
+    if (props.item.item_last_price !== "") {
       setLastPriceExist(true);
     }
   }, [])

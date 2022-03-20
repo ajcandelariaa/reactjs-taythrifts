@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 
 function StoreNavbar(props) {
   const [nickname, setNickname] = useState("");
-  const [username, setUsername] = useState("");
   const [imageUrl, setImageUrl] = useState("../../images/defaultImage.png");
   const navigate = useNavigate();
   const accountId = window.sessionStorage.getItem("account_id");
+  const docRef = doc(db, "stores", accountId);
 
   const logout = () => {
     window.sessionStorage.clear();
@@ -16,24 +16,11 @@ function StoreNavbar(props) {
   };
 
   useEffect(() => {
-    const storeCollection = collection(db, "stores");
-    const getAccountInfo = async () => {
-      const storeData = await getDocs(storeCollection);
+    onSnapshot(docRef, (doc) => {
+      setImageUrl(doc.data().imageUrl);
+      setNickname(doc.data().name);
+    });
 
-      const accountInfo = storeData.docs
-        .filter((doc) => doc.id === accountId)
-        .map((doc2) => ({
-          nickname: doc2.data().name,
-          imageUrl: doc2.data().imageUrl,
-          username: doc2.data().username,
-        }));
-
-      setImageUrl(accountInfo[0].imageUrl);
-      setNickname(accountInfo[0].nickname);
-      setUsername(accountInfo[0].username);
-    };
-
-    getAccountInfo();
   }, []);
 
   return (
@@ -47,7 +34,7 @@ function StoreNavbar(props) {
             <NavLink className="hover:text-gray-300" to="/dashboard">
               Dashboard
             </NavLink>
-            <NavLink className="hover:text-gray-300" to={"/store/profile/"+username}>
+            <NavLink className="hover:text-gray-300" to={"/store/profile"}>
               Profile
             </NavLink>
             <NavLink

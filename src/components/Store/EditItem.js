@@ -12,7 +12,6 @@ function EditItem({ showDefault, itemId }) {
   const [category, setCategory] = useState("Tops");
   const [image, setImage] = useState(null);
   const [loader, setLoader] = useState(false);
-  const accountId = window.sessionStorage.getItem("account_id");
   const docRef = doc(db, "items", itemId);
 
   useEffect(() => {
@@ -51,7 +50,7 @@ function EditItem({ showDefault, itemId }) {
       item_last_price: lastPrice,
       item_category: category,
     }).then(() => {
-      toastSuccess();
+      toastSuccess("Item Updated!");
       showDefault();
       setLoader(false);
     })
@@ -66,7 +65,7 @@ function EditItem({ showDefault, itemId }) {
       item_category: category,
       item_imageUrl: url,
     }).then(() => {
-      toastSuccess();
+      toastSuccess("Item Updated!");
       showDefault();
       setLoader(false);
     })
@@ -87,7 +86,7 @@ function EditItem({ showDefault, itemId }) {
           const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           console.log(progress);
         }, (error) => {
-          toastError();
+          toastError("Error Updating Item1");
           setLoader(false);
           console.log(error.message);
         }, () => {
@@ -95,7 +94,7 @@ function EditItem({ showDefault, itemId }) {
             .then((url) => {
               updateItemWithImage(url);
             }).catch((err) => {
-              toastError();
+              toastError("Error Updating Item2");
               setLoader(false);
               console.log(err.message);
             })
@@ -144,6 +143,7 @@ function EditItem({ showDefault, itemId }) {
               <input
                 type="number"
                 min="0"
+                step=".01"
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
                 value={actualPrice}
                 onChange={(e) => setActualPrice(e.target.value)}
@@ -155,6 +155,7 @@ function EditItem({ showDefault, itemId }) {
               <input
                 type="number"
                 min="0"
+                step=".01"
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
                 value={lastPrice}
                 onChange={(e) => setLastPrice(e.target.value)}

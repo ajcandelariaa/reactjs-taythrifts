@@ -41,7 +41,7 @@ function App() {
           <Route element={<ProtectedRoutes accountType="customer" />}>
             <Route element={<CustomerLayout />}>
               <Route path="/marketplace" element={<Marketplace />} />
-              <Route path="/customer/profile/:username" element={<CustomerProfile />} />
+              <Route path="/customer/profile" element={<CustomerProfile />} />
               <Route path="/customer/transactions" element={<CustomerTransactions />}/>
               <Route path="/customer/cart" element={<CustomerCart />} />
             </Route>
@@ -51,7 +51,7 @@ function App() {
           <Route element={<ProtectedRoutes accountType="store" />}>
             <Route element={<StoreLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/store/profile/:username" element={<StoreProfile />} />
+              <Route path="/store/profile" element={<StoreProfile />} />
               <Route path="/store/transactions" element={<StoreTransactions />} />
             </Route>
           </Route>

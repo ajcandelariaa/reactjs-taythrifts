@@ -20,14 +20,14 @@ function StoreItem({item, showEditItem}) {
 
   const deleteItem = async () => {
     await deleteDoc(itemDoc);
-    toastSuccess();
-    setAccepted(false);
-    setMessage("");
   }
 
   useEffect(() => {
     if (accept) {
       deleteItem();
+      toastSuccess("Item Deleted!");
+      setAccepted(false);
+      setMessage("");
     }
   }, [accept]);
 
@@ -43,11 +43,11 @@ function StoreItem({item, showEditItem}) {
         <p className="col-span-3">{item.item_name}</p>
         <p className="col-span-2">{item.item_desc}</p>
         <p className="col-span-2">{item.item_category}</p>
-        <p className="col-span-1">₱ {item.item_price}</p>
+        <p className="col-span-1">₱ {parseFloat(item.item_price).toFixed(2)}</p>
         <p className="col-span-1">
-          {item.item_last_price === null
+          {item.item_last_price == ""
             ? "N/A"
-            : `₱ ${item.item_last_price}`}
+            : `₱ ${parseFloat(item.item_last_price).toFixed(2)}`}
         </p>
         <p className="col-span-1">
           {new Date(item.created_at.seconds * 1000).toLocaleDateString(

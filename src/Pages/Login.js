@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../services/Firebase";
-import { toastValidAccount, toastInvalidAccount } from "../helpers/Toaster";
+import { toastSuccess, toastError } from "../helpers/Toaster";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -36,11 +36,11 @@ function Login() {
           (doc) => doc.data().username === username && doc.data().password === password
         ).map((doc2) => ({id: doc2.id}));
         if (cust.length === 0) {
-          toastInvalidAccount();
+          toastError("Invalid Username and Password!");
           setLoader(false);
           setError(true);
         } else {
-          toastValidAccount();
+          toastSuccess("Login Successfully!");
           setLoader(false);
           navigate("/marketplace", { replace: true });
           window.sessionStorage.setItem("accountType", "customer");
@@ -54,11 +54,11 @@ function Login() {
           (doc) => doc.data().username === username && doc.data().password === password
         ).map((doc2) => ({id: doc2.id}));
         if (store.length === 0) {
-          toastInvalidAccount();
+          toastError("Invalid Username and Password!");
           setLoader(false);
           setError(true);
         } else {
-          toastValidAccount();
+          toastSuccess("Login Successfully!");
           setLoader(false);
           navigate("/dashboard", { replace: true });
           window.sessionStorage.setItem("accountType", "store");

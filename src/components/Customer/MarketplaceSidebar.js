@@ -1,30 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function MarketplaceSidebar(props) {
-  const setTops = () => {
-    props.setCategory("Tops");
-  };
-  const setPants = () => {
-    props.setCategory("Pants");
-  };
-  const setShorts = () => {
-    props.setCategory("Shorts");
-  };
-  const setDresses = () => {
-    props.setCategory("Dresses");
-  };
-  const setOthers = () => {
-    props.setCategory("Others");
-  };
-  const setLatestProducts = () => {
-    props.setCategory("Latest Products");
-  };
-  const setBestSeller = () => {
-    props.setCategory("Best Seller");
-  };
-  const setAllProducts = () => {
-    props.setCategory("All Products");
-  };
+function MarketplaceSidebar({
+  category, 
+  setCategory,
+  countAll,
+  countLatest,
+  countBestSeller,
+  countTops,
+  countPants,
+  countShorts,
+  countDresses,
+  countOthers
+}) {
+
+  const setTops = () => { setCategory("Tops"); };
+  const setPants = () => { setCategory("Pants"); };
+  const setShorts = () => { setCategory("Shorts"); };
+  const setDresses = () => { setCategory("Dresses"); };
+  const setOthers = () => { setCategory("Others"); };
+  const setLatestProducts = () => { setCategory("Latest Products"); };
+  const setBestSeller = () => { setCategory("Best Seller"); };
+  const setAllProducts = () => { setCategory("All Products"); };
+
   return (
     <div className="bg-sideBarMarketplace min-h-screen max-h-full">
       <div className="text-xl text-center text-gray-300 mt-5">Categories</div>
@@ -32,14 +29,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "All Products"
+            (category === "All Products"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setAllProducts}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            125
+            {countAll}
           </div>
           <p className="text-gray-300">All Products</p>
         </div>
@@ -47,14 +44,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "Latest Products"
+            (category === "Latest Products"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setLatestProducts}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            5
+            {countLatest}
           </div>
           <p className="text-gray-300">Latest Products</p>
         </div>
@@ -62,14 +59,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "Best Seller"
+            (category === "Best Seller"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setBestSeller}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            5
+            {countBestSeller}
           </div>
           <p className="">Best Seller</p>
         </div>
@@ -77,14 +74,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "Tops"
+            (category === "Tops"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setTops}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            5
+            {countTops}
           </div>
           <p className="">Tops</p>
         </div>
@@ -92,14 +89,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "Pants"
+            (category === "Pants"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setPants}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            5
+            {countPants}
           </div>
           <p className="">Pants</p>
         </div>
@@ -107,14 +104,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "Shorts"
+            (category === "Shorts"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setShorts}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            5
+            {countShorts}
           </div>
           <p className="">Shorts</p>
         </div>
@@ -122,14 +119,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "Dresses"
+            (category === "Dresses"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setDresses}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            5
+            {countDresses}
           </div>
           <p className="">Dresses</p>
         </div>
@@ -137,14 +134,14 @@ function MarketplaceSidebar(props) {
         <div
           className={
             "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
-            (props.category === "Others"
+            (category === "Others"
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover ")
           }
           onClick={setOthers}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
-            5
+            {countOthers}
           </div>
           <p className="">Others</p>
         </div>

@@ -18,8 +18,6 @@ function Dashboard() {
     setItemId(id);
   }
 
-  console.log(show);
-
   useEffect(() => {
   const itemsCollection = collection(db, "items");
     const q = query(itemsCollection, where("store_id", "==", accountId), orderBy("created_at", "desc"));

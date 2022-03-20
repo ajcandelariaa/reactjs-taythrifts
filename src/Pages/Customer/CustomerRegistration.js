@@ -45,13 +45,14 @@ function CustomerRegistration() {
 
     if(validation()){
       const customersCollectionRef = collection(db, "customers");
-      const storageRef = ref(storage, `customers/${Date.now()}${image.name}`);
+      const path = `customers/${Date.now()}${image.name}`;
+      const storageRef = ref(storage, path);
       const uploadImage = uploadBytesResumable(storageRef, image);
       uploadImage.on("state_changed", (snapshot) => {
           const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           console.log(progress);
         }, (error) => {
-          toastError();
+          toastError("Error Submitting Form1");
           setLoader(false);
           console.log(error.message);
         }, () => {
@@ -72,9 +73,10 @@ function CustomerRegistration() {
               confirmPassword: confirmPassword,
               gender: gender,
               imageUrl: url,
+              imagePath: path,
               verified: false,
             }).then(() => {
-              toastSuccess();
+              toastSuccess("Registered Successfully!");
               setLoader(false);
               setFirstname("");
               setMiddlename("");
@@ -92,7 +94,7 @@ function CustomerRegistration() {
               document.getElementById("previewImg").src='../images/defaultImage.png';
               setImage(null);
             }).catch((err) => {
-              toastError();
+              toastError("Error Submitting Form2");
               setLoader(false);
               console.log(err.message);
             })
@@ -100,7 +102,7 @@ function CustomerRegistration() {
         }
       );
     } else {
-      toastError();
+      toastError("Error Submitting Form3");
       setLoader(false);
     }
   };

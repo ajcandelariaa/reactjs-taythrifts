@@ -39,7 +39,8 @@ function StoreRegistration() {
 
     if (validation()) {
       const storesCollectionRef = collection(db, "stores");
-      const storageRef = ref(storage, `stores/${Date.now()}${image.name}`);
+      const path = `stores/${Date.now()}${image.name}`;
+      const storageRef = ref(storage, path);
       const uploadImage = uploadBytesResumable(storageRef, image);
       uploadImage.on(
         "state_changed",
@@ -50,7 +51,7 @@ function StoreRegistration() {
           console.log(progress);
         },
         (error) => {
-          toastError();
+          toastError("Error Submitting Form1");
           setLoader(false);
           console.log(error.message);
         },
@@ -64,10 +65,11 @@ function StoreRegistration() {
               contactNumber: contactNumber,
               address: address,
               imageUrl: url,
+              imagePath: path,
               verified: false,
             })
               .then(() => {
-                toastSuccess();
+                toastSuccess("Registered Successfully!");
                 setLoader(false);
                 setName("");
                 setEmailAddress("");
@@ -81,7 +83,7 @@ function StoreRegistration() {
                 setImage(null);
               })
               .catch((err) => {
-                toastError();
+                toastError("Error Submitting Form2");
                 setLoader(false);
                 console.log(err.message);
               });
@@ -89,7 +91,7 @@ function StoreRegistration() {
         }
       );
     } else {
-      toastError();
+      toastError("Error Submitting Form3");
       setLoader(false);
     }
   };

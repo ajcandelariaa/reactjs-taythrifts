@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 
 function CustomerNavbar(props) {
@@ -9,6 +9,7 @@ function CustomerNavbar(props) {
   const [cart, setCart] = useState(0);
   const navigate = useNavigate();
   const accountId = window.sessionStorage.getItem("account_id");
+  const docRef = doc(db, "customers", accountId);
 
   const logout = () => {
     window.sessionStorage.clear();
@@ -16,37 +17,21 @@ function CustomerNavbar(props) {
   };
 
   useEffect(() => {
-    const customerCollection = collection(db, "customers");
-    const cartCollection = collection(db, "carts");
-    const queryCartCollection = query(
-      cartCollection,
-      where("customer_id", "==", accountId),
-      where("checkout", "==", false)
-    );
+    onSnapshot(docRef, (doc) => {
+      setImageUrl(doc.data().imageUrl);
+      setNickname(doc.data().nickname);
+    });
 
-    const getAccountInfo = async () => {
-      const customerData = await getDocs(customerCollection);
-      const cartData = await getDocs(queryCartCollection);
+    const q = query(collection(db, "carts"), where("customer_id", "==", accountId), where("checkout", "==", false));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let countCart = 0;
+      querySnapshot.forEach((doc) => {
+        countCart += doc.data().item_quantity;
+      });
+      setCart(countCart);
+    });
 
-      const accountInfo = customerData.docs
-        .filter((doc) => doc.id === accountId)
-        .map((doc2) => ({
-          nickname: doc2.data().nickname,
-          imageUrl: doc2.data().imageUrl,
-        }));
-
-      setImageUrl(accountInfo[0].imageUrl);
-      setNickname(accountInfo[0].nickname);
-
-      setCart(
-        cartData.docs.reduce((acc, curr) => {
-          acc += curr.data().item_quantity;
-          return acc;
-        }, 0)
-      );
-    };
-
-    getAccountInfo();
+    return () => unsub();
   }, []);
 
   return (

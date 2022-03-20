@@ -8,7 +8,7 @@ function AddItem() {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [actualPrice, setActualPrice] = useState(0);
-  const [lastPrice, setLastPrice] = useState(null);
+  const [lastPrice, setLastPrice] = useState("");
   const [category, setCategory] = useState("Tops");
   const [image, setImage] = useState(null);
   const [loader, setLoader] = useState(false);
@@ -43,7 +43,7 @@ function AddItem() {
         const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         console.log(progress);
       }, (error) => {
-        toastError();
+        toastError("Error Adding Item1");
         setLoader(false);
         console.log(error.message);
       }, () => {
@@ -60,7 +60,7 @@ function AddItem() {
               created_at: serverTimestamp(),
               store_id: accountId,
             }).then(() => {
-              toastSuccess();
+              toastSuccess("Item Added!");
               setLoader(false);
               setName("");
               setDesc("");
@@ -71,7 +71,7 @@ function AddItem() {
               document.getElementById("previewImg").src='../images/defaultImage.png';
               setImage(null);
             }).catch((err) => {
-              toastError();
+              toastError("Error Adding Item2");
               setLoader(false);
               console.log(err.message);
             })
@@ -120,6 +120,7 @@ function AddItem() {
               <input
                 type="number"
                 min="0"
+                step=".01"
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
                 value={actualPrice}
                 onChange={(e) => setActualPrice(e.target.value)}
@@ -131,6 +132,7 @@ function AddItem() {
               <input
                 type="number"
                 min="0"
+                step=".01"
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
                 value={lastPrice}
                 onChange={(e) => setLastPrice(e.target.value)}
