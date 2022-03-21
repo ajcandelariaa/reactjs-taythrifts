@@ -46,8 +46,8 @@ function EditItem({ showDefault, itemId }) {
     await updateDoc(docRef, {
       item_name: name,
       item_desc: desc,
-      item_price: actualPrice,
-      item_last_price: lastPrice,
+      item_price: Number(actualPrice),
+      item_last_price: Number(lastPrice),
       item_category: category,
     }).then(() => {
       toastSuccess("Item Updated!");

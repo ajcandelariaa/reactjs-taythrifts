@@ -4,7 +4,7 @@ import StoreItem from "./StoreItem";
 function Inventory({items, showEditItem}) {
   return (
     <div className="mt-5">
-      <div className="grid grid-cols-12 gap-4 w-full justify-items-center items-center font-bold bg-black text-white py-2">
+      <div className="grid grid-cols-12 gap-4 w-full justify-items-center items-center font-semibold bg-inventoryHeaderBg text-white py-5">
         <p className="col-span-1">Image</p>
         <p className="col-span-3">Product Name</p>
         <p className="col-span-2">Description</p>

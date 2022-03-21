@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Category from "../../components/customer/Category";
 import MarketplaceSidebar from "../../components/customer/MarketplaceSidebar";
-import { collection, getDocs, limit, orderBy, query, where, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  limit,
+  orderBy,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../../services/Firebase";
 
 function Marketplace() {
@@ -22,84 +29,114 @@ function Marketplace() {
     const itemsCollectionRef = collection(db, "items");
     const storesCollectionRef = collection(db, "stores");
     let storesArray = [];
-    
+
     const getItems1 = () => {
       const queryStoreData = query(storesCollectionRef);
-      const unsub = onSnapshot(queryStoreData, querySnapsot => {
-        querySnapsot.forEach(doc => {
-          storesArray.push({...doc.data(), store_id: doc.id})
+      const unsub = onSnapshot(queryStoreData, (querySnapsot) => {
+        querySnapsot.forEach((doc) => {
+          storesArray.push({ ...doc.data(), store_id: doc.id });
         });
       });
       return () => unsub();
-    }
+    };
 
     const getItems2 = () => {
-      const queryItemData = query(itemsCollectionRef, orderBy("item_price", "asc"));
-      const unsub = onSnapshot(queryItemData, querySnapsot => {
+      const queryItemData = query(
+        itemsCollectionRef,
+        orderBy("item_price", "asc")
+      );
+      const unsub = onSnapshot(queryItemData, (querySnapsot) => {
         let itemsArray = [];
-        querySnapsot.forEach(doc => {
-          switch(doc.data().item_category){
+        querySnapsot.forEach((doc) => {
+          switch (doc.data().item_category) {
             case "Tops":
-              setCountTops(countTops + 1)
+              setCountTops((prevCount) => prevCount + 1);
               break;
             case "Pants":
-              setCountPants(countPants + 1)
+              setCountPants((prevCount) => prevCount + 1);
               break;
             case "Shorts":
-              setCountShorts(countShorts + 1)
+              setCountShorts((prevCount) => prevCount + 1);
               break;
             case "Dresses":
-              setCountDresses(countDresses + 1)
+              setCountDresses((prevCount) => prevCount + 1);
               break;
             case "Others":
-              setCountOthers(countOthers + 1)
+              setCountOthers((prevCount) => prevCount + 1);
               break;
             default:
           }
           storesArray.forEach((i) => {
-            if(doc.data().store_id === i.store_id){
-              itemsArray.push({...doc.data(), item_id: doc.id, store_name: i.name, store_imageUrl: i.imageUrl})
+            if (doc.data().store_id === i.store_id) {
+              itemsArray.push({
+                ...doc.data(),
+                item_id: doc.id,
+                store_id: i.store_id,
+                store_name: i.name,
+                store_imageUrl: i.imageUrl,
+              });
             }
-          })
+          });
         });
         setItems(itemsArray);
         setCountAll(itemsArray.length);
       });
       return () => unsub();
-    }
+    };
     const getItems3 = () => {
-      const qBestSeller = query(itemsCollectionRef, where("item_purchase", ">", 0), orderBy("item_purchase", "asc"), limit(10));
-      const unsub = onSnapshot(qBestSeller, querySnapsot => {
-        let itemsArray = []
-        querySnapsot.forEach(doc => {
+      const qBestSeller = query(
+        itemsCollectionRef,
+        where("item_purchase", ">", 0),
+        orderBy("item_purchase", "asc"),
+        limit(10)
+      );
+      const unsub = onSnapshot(qBestSeller, (querySnapsot) => {
+        let itemsArray = [];
+        querySnapsot.forEach((doc) => {
           storesArray.forEach((i) => {
-            if(doc.data().store_id === i.store_id){
-              itemsArray.push({...doc.data(), item_id: doc.id, store_name: i.name, store_imageUrl: i.imageUrl})
+            if (doc.data().store_id === i.store_id) {
+              itemsArray.push({
+                ...doc.data(),
+                item_id: doc.id,
+                store_id: i.store_id,
+                store_name: i.name,
+                store_imageUrl: i.imageUrl,
+              });
             }
-          })
+          });
         });
-        setBestSeller(itemsArray)
+        setBestSeller(itemsArray);
         setCountBestSeller(itemsArray.length);
       });
       return () => unsub();
-    }
+    };
 
     const getItems4 = () => {
-      const qLatest = query(itemsCollectionRef, orderBy("created_at", "desc"), limit(10));
-      const unsub = onSnapshot(qLatest, querySnapsot => {
-        let itemsArray = []
-        querySnapsot.forEach(doc => {
+      const qLatest = query(
+        itemsCollectionRef,
+        orderBy("created_at", "desc"),
+        limit(10)
+      );
+      const unsub = onSnapshot(qLatest, (querySnapsot) => {
+        let itemsArray = [];
+        querySnapsot.forEach((doc) => {
           storesArray.forEach((i) => {
-            if(doc.data().store_id === i.store_id){
-              itemsArray.push({...doc.data(), item_id: doc.id, store_name: i.name, store_imageUrl: i.imageUrl})
+            if (doc.data().store_id === i.store_id) {
+              itemsArray.push({
+                ...doc.data(),
+                item_id: doc.id,
+                store_id: i.store_id,
+                store_name: i.name,
+                store_imageUrl: i.imageUrl,
+              });
             }
-          })
+          });
         });
         setLatest(itemsArray);
         setCountLatest(itemsArray.length);
       });
       return () => unsub();
-    }
+    };
 
     getItems1();
     getItems2();
@@ -120,7 +157,12 @@ function Marketplace() {
         countDresses={countDresses}
         countOthers={countOthers}
       />
-      <Category category={category} items={items} latest={latest} bestSeller={bestSeller} />
+      <Category
+        category={category}
+        items={items}
+        latest={latest}
+        bestSeller={bestSeller}
+      />
     </div>
   );
 }

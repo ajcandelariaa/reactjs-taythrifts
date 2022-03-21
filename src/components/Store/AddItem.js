@@ -52,8 +52,8 @@ function AddItem() {
             addDoc(itemsCollection, {
               item_name: name,
               item_desc: desc,
-              item_price: actualPrice,
-              item_last_price: lastPrice,
+              item_price: Number(actualPrice),
+              item_last_price: Number(lastPrice),
               item_category: category,
               item_purchase: 0,
               item_imageUrl: url,
@@ -69,6 +69,7 @@ function AddItem() {
               setCategory("");
               setImage(null);
               document.getElementById("previewImg").src='../images/defaultImage.png';
+              document.getElementById("image").value = null;
               setImage(null);
             }).catch((err) => {
               toastError("Error Adding Item2");
@@ -154,6 +155,7 @@ function AddItem() {
                 type="file"
                 className="w-full border pt-1 border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
                 accept="image/*"
+                id="image"
                 onChange={chooseImage}
                 required
               />

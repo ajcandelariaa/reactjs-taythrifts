@@ -22,6 +22,7 @@ module.exports = {
         sideBarMarketplaceButtonsActive: '#085070',
         sideBarMarketplaceButtonsHover: '#074561',
         circleCartBg: '#05567b',
+        inventoryHeaderBg: '#487185',
       },
       width: {
         loginForm: '45%',

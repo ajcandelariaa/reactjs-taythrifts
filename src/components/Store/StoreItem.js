@@ -33,10 +33,9 @@ function StoreItem({item, showEditItem}) {
 
   return (
     <div>
-      <div className="border border-gray-200"></div>
-      <div className="grid grid-cols-12 gap-4 my-1 w-full justify-items-center items-center">
+      <div className="grid grid-cols-12 gap-4 my-1 w-full justify-items-center items-center bg-gray-100 py-1">
         <img
-          className="col-span-1 w-14 h-14 object-cover"
+          className="col-span-1 w-10 h-10 object-cover"
           src={item.item_imageUrl}
           alt="sampleItem"
         />
