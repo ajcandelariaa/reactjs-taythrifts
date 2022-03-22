@@ -10,22 +10,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
+import NameYourPrice from "./NameYourPrice";
 
 function Item(props) {
   const [isHover, setIsHover] = useState(false);
   const [lastPriceExist, setLastPriceExist] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [nameYourPriceModal, setNameYourPriceModal] = useState(false);
   const accountId = window.sessionStorage.getItem("account_id");
   const cartsCollectionRef = collection(db, "carts");
-
-  const mouseIn = () => {
-    setIsHover(true);
-  };
-  const mouseOut = () => {
-    setIsHover(false);
-  };
-
-  const nameYourPrice = () => {};
 
   useEffect(() => {
     if (props.item.item_last_price !== "") {
@@ -33,7 +26,7 @@ function Item(props) {
     }
   }, []);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (cartPrice) => {
     let orderNumber = 536;
     let cartArray = [];
 
@@ -83,10 +76,10 @@ function Item(props) {
           item_id: props.item.item_id,
           item_imageUrl: props.item.item_imageUrl,
           item_name: props.item.item_name,
-          item_price: Number(props.item.item_price),
+          item_price: Number(cartPrice),
           item_quantity: 1,
           order_number: Number(orderNumber),
-          total_price: Number(props.item.item_price),
+          total_price: Number(cartPrice),
         })
           .then(() => {
             toastSuccess("Added To Cart");
@@ -112,8 +105,8 @@ function Item(props) {
     <div className="shadow-2xl bg-white rounded-xl">
       <div
         className="bg-itemBgHover rounded-tr-xl rounded-tl-xl relative"
-        onMouseEnter={mouseIn}
-        onMouseLeave={mouseOut}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
       >
         <img
           src={props.item.item_imageUrl}
@@ -144,7 +137,7 @@ function Item(props) {
                   className={`text-black bg-white rounded-3xl w-40 py-2 hover:text-white hover:bg-itemBgHover row-span-2 ${
                     lastPriceExist && "row-span-1"
                   }`}
-                  onClick={handleAddToCart}
+                  onClick={() => handleAddToCart(props.item.item_price)}
                 >
                   Add to Cart
                 </button>
@@ -153,7 +146,7 @@ function Item(props) {
             {lastPriceExist && (
               <button
                 className="text-black bg-white rounded-3xl w-40 py-2 hover:text-white hover:bg-itemBgHover"
-                onClick={nameYourPrice}
+                onClick={() => setNameYourPriceModal(true)}
               >
                 Name your price
               </button>
@@ -182,6 +175,14 @@ function Item(props) {
           )}
         </div>
       </div>
+      {nameYourPriceModal && (
+        <NameYourPrice
+          setNameYourPriceModal={setNameYourPriceModal}
+          item_price={parseFloat(props.item.item_price).toFixed(2)}
+          last_price={parseFloat(props.item.item_last_price).toFixed(2)}
+          handleAddToCart={handleAddToCart}
+        />
+      )}
     </div>
   );
 }

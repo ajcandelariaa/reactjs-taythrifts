@@ -1,22 +1,22 @@
 import React from "react";
 
-function TransactionItem() {
+function TransactionItem({item}) {
   return (
     <div>
       <div className="border border-gray-200"></div>
       <div className="grid grid-cols-12 gap-4 my-1 w-full justify-items-center items-center">
         <img
           className="col-span-1 w-10 h-10 object-cover"
-          src="../images/sampleItem.jpg"
+          src={item.item_imageUrl}
           alt="sampleItem"
         />
-        <p className="col-span-3">Yellow Turtle Neck Dress</p>
-        <p className="col-span-2">Medium</p>
-        <p className="col-span-1">Forever 21</p>
-        <p className="col-span-2">Taytay</p>
-        <p className="col-span-1">2</p>
-        <p className="col-span-1">₱ 450.00</p>
-        <p className="col-span-1">₱ 900.00</p>
+        <p className="col-span-3">{item.item_name}</p>
+        <p className="col-span-2">{item.item_desc}</p>
+        <p className="col-span-1">{item.storeName}</p>
+        <p className="col-span-2">{item.storeAddress}</p>
+        <p className="col-span-1">{item.item_quantity}</p>
+        <p className="col-span-1">₱ {parseFloat(item.item_price).toFixed(2)}</p>
+        <p className="col-span-1">₱ {parseFloat(item.total_price).toFixed(2)}</p>
       </div>
     </div>
   );
