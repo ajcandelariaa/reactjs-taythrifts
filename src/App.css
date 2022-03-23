@@ -1,0 +1,18 @@
+.home-header{
+    background: linear-gradient(135deg, #172a74, #21a9af);
+}
+
+.customer-navbar .active {
+    color: white;
+    opacity: 1;
+}
+
+.store-navbar .active {
+    color: white;
+    opacity: 1;
+}
+
+.registration-navbar .active {
+    color: white;
+    opacity: 1;
+}
