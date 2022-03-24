@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import StoreTransactionModal from "./StoreTransactionModal";
+import { convertDateToString } from "../../helpers/GetStringDate";
 
 function StoreTransaction({ transaction }) {
   const [storeTransactionModal, setStoreTransactionModal] = useState(false);
@@ -9,7 +10,7 @@ function StoreTransaction({ transaction }) {
       <div className="border border-gray-200"></div>
       <div className="grid grid-cols-6 gap-4 py-2 my-1 w-full justify-items-center items-center">
         <p>{transaction.orderNumber}</p>
-        <p>{new Date(transaction.checkout_date.seconds * 1000).toLocaleDateString("en-US")}</p>
+        <p>{convertDateToString(new Date(transaction.checkout_date.seconds * 1000).toLocaleDateString("en-US"))}</p>
         <p>{transaction.customerName}</p>
         <p>₱ {parseFloat(transaction.totalSpent).toFixed(2)}</p>
         <p>{transaction.numberOfItems}</p>

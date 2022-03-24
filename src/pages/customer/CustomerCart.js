@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { collection, query, where, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/Firebase";
-import { toastSuccess, toastError } from "../../helpers/Toaster";
 import CartItem from "../../components/customer/CartItem";
 import CheckoutModal from "../../components/customer/CheckoutModal";
 
@@ -10,6 +9,7 @@ function CustomerCart() {
   const [fullname, setFullname] = useState("");
   const [address, setAddress] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
   const [totalCart, setTotalCart] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [overallAmount, setOverallAmount] = useState(0);
@@ -34,6 +34,7 @@ function CustomerCart() {
         );
         setAddress(doc.data().address);
         setContactNumber(doc.data().contactNumber);
+        setEmailAddress(doc.data().emailAddress);
       });
       return () => unsub();
     };
@@ -119,6 +120,10 @@ function CustomerCart() {
                 <p>{address}</p>
               </div>
               <div className="mt-5">
+                <p>Email Address:</p>
+                <p>{emailAddress}</p>
+              </div>
+              <div className="mt-5">
                 <p>Contact Number:</p>
                 <p>{contactNumber}</p>
               </div>
@@ -196,6 +201,10 @@ function CustomerCart() {
           overallAmount={overallAmount}
           payment={payment}
           setPayment={setPayment}
+          fullname={fullname}
+          contactNumber={contactNumber}
+          emailAddress={emailAddress}
+          address={address}
         />
       )}
     </div>

@@ -8,10 +8,10 @@ function Inventory({items, showEditItem}) {
         <p className="col-span-1">Image</p>
         <p className="col-span-3">Product Name</p>
         <p className="col-span-2">Description</p>
-        <p className="col-span-2">Category</p>
+        <p className="col-span-1">Category</p>
         <p className="col-span-1">Actual Price</p>
         <p className="col-span-1">Last Price</p>
-        <p className="col-span-1">Created At</p>
+        <p className="col-span-2">Created At</p>
         <p className="col-span-1">Actions</p>
       </div>
 
