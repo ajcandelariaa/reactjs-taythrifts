@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TransactionItemModal from "./TransactionItemModal";
 
 function Transaction({ transaction }) {
-  const [transactionModel, setTransactionModel] = useState(false);
+  const [transactionModal, setTransactionModal] = useState(false);
 
   return (
     <div >
@@ -12,11 +12,11 @@ function Transaction({ transaction }) {
         <p>{new Date(transaction.checkoutDate.seconds * 1000).toLocaleDateString("en-US")}</p>
         <p>₱ {parseFloat(transaction.totalSpent).toFixed(2)}</p>
         <p>{transaction.numberOfItems}</p>
-        <p className="cursor-pointer" onClick={() => setTransactionModel(true)} ><i class="fa-solid fa-eye"></i></p>
+        <p className="cursor-pointer" onClick={() => setTransactionModal(true)} ><i class="fa-solid fa-eye"></i></p>
       </div>
-      {transactionModel && (
+      {transactionModal && (
         <TransactionItemModal
-        setTransactionModel={setTransactionModel}
+        setTransactionModal={setTransactionModal}
         transaction={transaction}
         orderNumber={transaction.orderNumber}
         />

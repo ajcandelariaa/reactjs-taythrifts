@@ -7,7 +7,7 @@ function StoreTransactionItem({item}) {
       <div className="grid grid-cols-10 gap-4 my-1 w-full justify-items-center items-center">
         <img
           className="col-span-1 w-10 h-10 object-cover"
-          src="../images/sampleItem.jpg"
+          src={item.item_imageUrl}
           alt="sampleItem"
         />
         <p className="col-span-3">{item.item_name}</p>

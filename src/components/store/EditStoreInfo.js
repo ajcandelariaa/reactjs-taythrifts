@@ -40,10 +40,14 @@ function EditStoreInfo({ docRef }) {
   };
 
   return (
-    <div className="w-1/2 m-auto py-16 bg-regFormBg my-10">
-      <h1 className="text-center text-xl mb-5">Edit Profile</h1>
+    <div>
+      <div className="flex justify-center mb-5">
+        <p className="text-xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
+          Edit Info
+        </p>
+      </div>
       <form onSubmit={handleInfoForm}>
-        <div className="grid items-center justify-items-center w-full">
+        <div className="grid items-center justify-items-center w-full px-10">
           <div>
             <div className="grid grid-cols-regForm gap-6 items-center mt-5 w-full">
               <label className="text-right">Store Name</label>

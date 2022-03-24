@@ -3,42 +3,42 @@ import { onSnapshot, updateDoc } from "firebase/firestore";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
 
 function EditCustomerPassword({ docRef }) {
-    const [password, setPassword] = useState("");
-    const [oldPassword, setOldPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [passwordLoader, setPasswordLoader] = useState(false);
-  
-    useEffect(() => {
-      onSnapshot(docRef, (doc) => {
-          setPassword(doc.data().password);
-      });
-    }, []);
-  
-    const updatePassword = async () => {
-      await updateDoc(docRef, {
-        password: newPassword,
-      }).then(() => {
-        toastSuccess("Password Updated!");
-        setPasswordLoader(false);
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      });
-    };
-  
-    const handlePasswordForm = (e) => {
-      setPasswordLoader(true);
-      e.preventDefault();
-      updatePassword();
-    };
+  const [password, setPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordLoader, setPasswordLoader] = useState(false);
+
+  useEffect(() => {
+    onSnapshot(docRef, (doc) => {
+      setPassword(doc.data().password);
+    });
+  }, []);
+
+  const updatePassword = async () => {
+    await updateDoc(docRef, {
+      password: newPassword,
+    }).then(() => {
+      toastSuccess("Password Updated!");
+      setPasswordLoader(false);
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    });
+  };
+
+  const handlePasswordForm = (e) => {
+    setPasswordLoader(true);
+    e.preventDefault();
+    updatePassword();
+  };
   return (
     <div>
-    <div className="flex justify-center mb-5">
-      <p className="text-xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
-      Reset Password
-      </p>
-    </div>
+      <div className="flex justify-center mb-5">
+        <p className="text-xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
+          Reset Password
+        </p>
+      </div>
       <form onSubmit={handlePasswordForm}>
         <div className="grid items-center justify-items-center w-full px-10">
           <div>
@@ -96,7 +96,7 @@ function EditCustomerPassword({ docRef }) {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default EditCustomerPassword
+export default EditCustomerPassword;

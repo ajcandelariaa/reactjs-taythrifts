@@ -73,11 +73,11 @@ function EditCustomerImage({ docRef }) {
 
   return (
     <div>
-    <div className="flex justify-center mb-5">
-      <p className="text-xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
-      Update Image
-      </p>
-    </div>
+      <div className="flex justify-center mb-5">
+        <p className="text-xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
+          Update Image
+        </p>
+      </div>
       <form onSubmit={handleImageForm}>
         <div className="grid items-center justify-items-center w-full px-10">
           <div>

@@ -68,6 +68,7 @@ function StoreTransactions() {
                   totalSpent: totalSpent,
                   orderId: doc.id,
                   items: cartItemsArray,
+                  numberOfItems: cartItemsArray.length,
                   customerName: customer.nickname,
                 });
               }
@@ -84,7 +85,15 @@ function StoreTransactions() {
     getTransactions();
   }, []);
   return (
-    <div className="container mx-auto my-10">
+    <div className="container mx-auto my-10 bg-white">
+      <div className="grid grid-cols-6 gap-4 w-full justify-items-center items-center font-bold bg-inventoryHeaderBg text-white py-3">
+        <p>Order Number</p>
+        <p>Checkout Date</p>
+        <p>Customer</p>
+        <p>Total Spent</p>
+        <p>Number of Items</p>
+        <p>View Items</p>
+      </div>
       {transactions.length === 0
         ? "No transactions have been made yet"
         : transactions.map((transaction) => (
