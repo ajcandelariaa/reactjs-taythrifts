@@ -5,7 +5,7 @@ function ConfirmDialog({ setModal, message, loader, deleteItem }) {
     <div>
       <div
         className="w-full h-full fixed left-0 top-0 z-10 pt-24 "
-        style={{ background: `rgba(0, 0, 0, 0.6)` }}
+        style={{ background: `rgba(0, 0, 0, 0.8)` }}
         onClick={() => setModal(false)}
       ></div>
       <div className="fixed left-0 top-0 right-0 mt-10 bg-white w-96 border z-20 border-gray-300 rounded-md text-center mx-auto p-5">

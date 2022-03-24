@@ -45,9 +45,9 @@ function CartItem({ cart }) {
     <div className="my-4">
       <div className="grid grid-cols-footerGrid gap-5">
         <img
-          src="../images/sampleItem.jpg"
+          src={cart.item_imageUrl}
           alt="sampleItem"
-          className="object-cover h-full"
+          className="object-cover w-full h-80"
         />
         <div>
           <h1>{cart.item_name}</h1>
@@ -98,7 +98,6 @@ function CartItem({ cart }) {
         </div>
       </div>
 
-      <div className="border border-gray-300 mt-8"></div>
       {modal && (
         <ConfirmDialog
           setModal={setModal}

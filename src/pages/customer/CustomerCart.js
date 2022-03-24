@@ -3,7 +3,7 @@ import { collection, query, where, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
 import CartItem from "../../components/customer/CartItem";
-import Checkout from "../../components/customer/Checkout";
+import CheckoutModal from "../../components/customer/CheckoutModal";
 
 function CustomerCart() {
   const [carts, setCarts] = useState([]);
@@ -13,7 +13,8 @@ function CustomerCart() {
   const [totalCart, setTotalCart] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [overallAmount, setOverallAmount] = useState(0);
-  const [show, setShow] = useState("Default");
+  const [payment, setPayment] = useState("");
+  const [checkoutModal, setCheckoutModal] = useState(false);
   const accountId = window.sessionStorage.getItem("account_id");
 
   useEffect(() => {
@@ -72,7 +73,6 @@ function CustomerCart() {
             }
           });
         });
-        console.log(cartItemsArray);
         setCarts(cartItemsArray);
         setTotalCart(totalQuant);
         setTotalAmount(total);
@@ -88,78 +88,115 @@ function CustomerCart() {
 
   return (
     <div className="container mx-auto">
-      {show === "Default" ? (
-        <>
-          <div className="w-3/4 grid grid-cols-3 mx-auto mt-5 mb-10 gap-x-3">
-            <div className="col-span-1">
-              <div className="p-5 shadow-xl">
-                <p>Summary</p>
-                <div className="grid grid-cols-2">
-                  <p>Total amount</p>
-                  <p>₱ {parseFloat(totalAmount).toFixed(2)}</p>
-                </div>
-                <div className="grid grid-cols-2">
-                  <p>Shipping Fee</p>
-                  <p>₱ 50.00</p>
-                </div>
-                <div className="border border-gray-500 my-5"></div>
-                <div className="grid grid-cols-2">
-                  <p>Overall Amount</p>
-                  <p>₱ {parseFloat(overallAmount).toFixed(2)}</p>
-                </div>
-                {carts.length === 0 ? (
-                  <button
-                    className="uppercase text-white bg-gray-600 px-4 py-2 rounded-md mt-5 cursor-not-allowed"
-                    disabled
-                  >
-                    Checkout
-                  </button>
-                ) : (
-                  <button
-                    className="uppercase text-white bg-blue-600 px-4 py-2 rounded-md mt-5"
-                    onClick={() => setShow("Checkout")}
-                  >
-                    Checkout
-                  </button>
-                )}
+      <div className="w-3/4 grid grid-cols-3 mx-auto mt-5 mb-10 gap-x-3">
+        <div className="col-span-1 ">
+          <form onSubmit={(e) => { e.preventDefault(); setCheckoutModal(true); }}>
+            <div className="p-5 shadow-xl bg-gray-100">
+              <p className="text-xl">Summary</p>
+              <div className="grid grid-cols-2 mt-5">
+                <p>Total amount</p>
+                <p>₱ {parseFloat(totalAmount).toFixed(2)}</p>
               </div>
+              <div className="grid grid-cols-2">
+                <p>Shipping Fee</p>
+                <p>₱ 50.00</p>
+              </div>
+              <div className="border border-gray-300 my-5"></div>
+              <div className="grid grid-cols-2">
+                <p>Overall Amount</p>
+                <p>₱ {parseFloat(overallAmount).toFixed(2)}</p>
+              </div>
+            </div>
 
-              <div className="p-5 shadow-xl mt-5">
-                <p>Customer Information</p>
-                <div className="mt-5">
-                  <p>Full Name:</p>
-                  <p>{fullname}</p>
-                </div>
-                <div className="mt-5">
-                  <p>Address:</p>
-                  <p>{address}</p>
-                </div>
-                <div className="mt-5">
-                  <p>Contact Number:</p>
-                  <p>{contactNumber}</p>
-                </div>
+            <div className="p-5 shadow-xl mt-5 bg-gray-100">
+              <p className="text-xl">Customer Information</p>
+              <div className="mt-5">
+                <p>Full Name:</p>
+                <p>{fullname}</p>
+              </div>
+              <div className="mt-5">
+                <p>Address:</p>
+                <p>{address}</p>
+              </div>
+              <div className="mt-5">
+                <p>Contact Number:</p>
+                <p>{contactNumber}</p>
               </div>
             </div>
-            <div className="col-span-2">
-              <div className="p-5 shadow-xl">
-                <p>Cart ({totalCart} Item/s)</p>
-                {carts.length === 0
-                  ? "You don't have any added item yet"
-                  : carts.map((cart) => (
-                      <CartItem cart={cart} key={cart.cart_id} />
-                    ))}
+
+            <div className="p-5 shadow-xl mt-5 bg-gray-100">
+              <p className="text-xl">Mode of Payment</p>
+              <div className="flex items-center gap-2 mt-5">
+                <input
+                  type="radio"
+                  className="cursor-pointer"
+                  name="payment"
+                  checked={payment === "Cash on Delivery (COD)"}
+                  onChange={() => setPayment("Cash on Delivery (COD)")}
+                  required
+                />{" "}
+                Cash on Delivery (COD)
+              </div>
+              <div className="flex items-center gap-2 mt-5">
+                <input
+                  type="radio"
+                  className="cursor-pointer"
+                  name="payment"
+                  checked={payment === "Credit / Debit Cart (Visa)"}
+                  onChange={() => setPayment("Credit / Debit Cart (Visa)")}
+                  required
+                />
+                Credit / Debit Cart (Visa)
+              </div>
+              <div className="flex items-center gap-2 mt-5">
+                <input
+                  type="radio"
+                  className="cursor-pointer"
+                  name="payment"
+                  checked={payment === "Paypal"}
+                  onChange={() => setPayment("Paypal")}
+                  required
+                />
+                Paypal
               </div>
             </div>
+
+            {carts.length === 0 ? (
+              <button
+                className="uppercase text-white bg-gray-600 px-4 py-2 w-full rounded-md mt-5 cursor-not-allowed"
+                disabled
+              >
+                Checkout
+              </button>
+            ) : (
+              <button
+                className="uppercase text-white bg-blue-600 px-4 py-2 w-full rounded-md mt-5"
+              >
+                Checkout
+              </button>
+            )}
+          </form>
+        </div>
+        <div className="col-span-2">
+          <div className="p-5 shadow-xl bg-gray-100">
+            <p className="text-xl mb-10 mt-4">Cart ({totalCart} Item/s)</p>
+            {carts.length === 0
+              ? "You don't have any added item yet"
+              : carts.map((cart) => (
+                  <CartItem cart={cart} key={cart.cart_id} />
+                ))}
           </div>
-        </>
-      ) : (
-        <>
-          <Checkout
-            setShow={setShow}
-            carts={carts}
-            overallAmount={overallAmount}
-          />
-        </>
+        </div>
+      </div>
+
+      {checkoutModal && (
+        <CheckoutModal
+          setCheckoutModal={setCheckoutModal}
+          carts={carts}
+          overallAmount={overallAmount}
+          payment={payment}
+          setPayment={setPayment}
+        />
       )}
     </div>
   );

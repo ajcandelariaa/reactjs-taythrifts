@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function MarketplaceSidebar({
   category, 
@@ -28,10 +28,10 @@ function MarketplaceSidebar({
       <div className="grid grid-rows-5 gap-3 mt-5">
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "All Products"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setAllProducts}
         >
@@ -43,10 +43,10 @@ function MarketplaceSidebar({
 
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "Latest Products"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setLatestProducts}
         >
@@ -58,10 +58,10 @@ function MarketplaceSidebar({
 
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "Best Seller"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setBestSeller}
         >
@@ -73,10 +73,10 @@ function MarketplaceSidebar({
 
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "Tops"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setTops}
         >
@@ -88,10 +88,10 @@ function MarketplaceSidebar({
 
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "Pants"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setPants}
         >
@@ -103,10 +103,10 @@ function MarketplaceSidebar({
 
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "Shorts"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setShorts}
         >
@@ -118,10 +118,10 @@ function MarketplaceSidebar({
 
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "Dresses"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setDresses}
         >
@@ -133,10 +133,10 @@ function MarketplaceSidebar({
 
         <div
           className={
-            "flex gap-3 justify-items-center items-center bg-sideBarMarketplaceButtons text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
+            "flex gap-3 justify-items-center items-center text-gray-300 py-2 pl-3 pr-20 cursor-pointer " +
             (category === "Others"
               ? "bg-sideBarMarketplaceButtonsActive"
-              : "hover:bg-sideBarMarketplaceButtonsHover ")
+              : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
           onClick={setOthers}
         >

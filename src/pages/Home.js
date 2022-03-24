@@ -5,7 +5,7 @@ import HomeNavbar from "../components/navbars/HomeNavbar";
 
 function Home() {
   return (
-    <div>
+    <div className="">
       <HomeNavbar />
       <div className="home-header">
         <div className="container m-auto grid grid-cols-2 items-center justify-items-center py-32">

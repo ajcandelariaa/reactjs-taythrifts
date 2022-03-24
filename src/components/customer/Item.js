@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
-import NameYourPrice from "./NameYourPrice";
+import NameYourPriceModal from "./NameYourPriceModal";
 
 function Item(props) {
   const [isHover, setIsHover] = useState(false);
@@ -101,10 +101,12 @@ function Item(props) {
     addToCart();
   };
 
+  
+
   return (
     <div className="shadow-2xl bg-white rounded-xl">
       <div
-        className="bg-itemBgHover rounded-tr-xl rounded-tl-xl relative"
+        className="bg-itemBgHover rounded-tr-xl rounded-tl-xl relative cursor-pointer"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
@@ -116,6 +118,7 @@ function Item(props) {
               ? "h-80 object-cover w-full rounded-tr-xl rounded-tl-xl opacity-50"
               : "h-80 object-cover w-full rounded-tr-xl rounded-tl-xl"
           }
+          onClick={() => alert("sample")}
         />
 
         {isHover && (
@@ -176,7 +179,7 @@ function Item(props) {
         </div>
       </div>
       {nameYourPriceModal && (
-        <NameYourPrice
+        <NameYourPriceModal
           setNameYourPriceModal={setNameYourPriceModal}
           item_price={parseFloat(props.item.item_price).toFixed(2)}
           last_price={parseFloat(props.item.item_last_price).toFixed(2)}

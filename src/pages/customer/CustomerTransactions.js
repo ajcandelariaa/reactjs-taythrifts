@@ -25,7 +25,11 @@ function CustomerTransactions() {
       const queryStoreData = query(storesCollectionRef);
       const unsub = onSnapshot(queryStoreData, (querySnapsot) => {
         querySnapsot.forEach((doc) => {
-          storesArray.push({ store_name: doc.data().name, store_id: doc.id, store_address: doc.data().address });
+          storesArray.push({
+            store_name: doc.data().name,
+            store_id: doc.id,
+            store_address: doc.data().address,
+          });
         });
       });
       return () => unsub();
@@ -74,6 +78,7 @@ function CustomerTransactions() {
             totalSpent: doc.data().total_price,
             orderNumber: doc.data().orderNumber,
             checkoutDate: doc.data().checkout_date,
+            numberOfItems: transactionItemsArray.length,
             items: transactionItemsArray,
           });
         });
@@ -87,12 +92,22 @@ function CustomerTransactions() {
     getOrders();
   }, []);
   return (
-    <div className="container mx-auto my-10">
+    <div className="container mx-auto my-10 bg-white">
+      <div className="grid grid-cols-5 gap-4 w-full justify-items-center items-center font-bold bg-inventoryHeaderBg text-white py-3">
+        <p>Order Number</p>
+        <p>Checkout Date</p>
+        <p>Total Spent</p>
+        <p>Number of Items</p>
+        <p>View Items</p>
+      </div>
       {transactions.length === 0
         ? "No transactions have been made yet!"
-        : transactions.map((transaction) => 
-          <Transaction transaction={transaction} key={transaction.transactionId} />
-        )}
+        : transactions.map((transaction) => (
+            <Transaction
+              transaction={transaction}
+              key={transaction.transactionId}
+            />
+          ))}
     </div>
   );
 }

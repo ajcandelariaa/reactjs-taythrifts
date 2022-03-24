@@ -6,8 +6,10 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         loginFormImage: '80px auto',
-        regForm: '140px auto',
+        regForm: '160px auto',
         footerGrid: '300px 300px auto',
+        profileGrid: '250px auto',
+        accountGrid: '300px auto',
       },
       colors: {
         loginForm: '#5a83d8',
@@ -36,7 +38,6 @@ module.exports = {
       backgroudns: {
         homePage: 'linear-gradient(135deg, #172a74, #21a9af)'
       },
-
     },
   },
   plugins: [],

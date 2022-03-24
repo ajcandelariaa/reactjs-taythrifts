@@ -1,3 +1,7 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
 .home-header{
     background: linear-gradient(135deg, #172a74, #21a9af);
 }
