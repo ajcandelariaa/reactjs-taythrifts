@@ -1,15 +1,22 @@
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../../services/Firebase";
-import { toastSuccess, toastError } from "../../helpers/Toaster";
+import { toastSuccess } from "../../helpers/Toaster";
+import ConfirmDialog from "../../helpers/ConfirmDialog";
 
 function CartItem({ cart }) {
+  const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [loader, setLoader] = useState(false);
   const cartDoc = doc(db, "carts", cart.cart_id);
 
   const deleteCart = async () => {
-    await deleteDoc(cartDoc).then(() => {
-      toastSuccess("Item Deleted!");
-    });
+    setLoader(true);
+    await deleteDoc(cartDoc);
+    setLoader(false);
+    toastSuccess("Item Deleted!");
+    setMessage("");
+    setModal(false)
   };
 
   const updateCart = async (newQuant, newTotalPrice, message) => {
@@ -30,7 +37,8 @@ function CartItem({ cart }) {
   };
 
   const removeItemCliked = () => {
-      deleteCart();
+      setModal(true);
+      setMessage("Are you sure you want to remove this item from your cart?");
   }
 
   return (
@@ -91,6 +99,14 @@ function CartItem({ cart }) {
       </div>
 
       <div className="border border-gray-300 mt-8"></div>
+      {modal && (
+        <ConfirmDialog
+          setModal={setModal}
+          message={message}
+          loader={loader}
+          deleteItem={deleteCart}
+        />
+      )}
     </div>
   );
 }

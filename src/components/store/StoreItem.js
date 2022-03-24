@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ConfirmDialog from "../../helpers/ConfirmDialog";
 import { toastSuccess } from "../../helpers/Toaster";
 import { deleteDoc, doc } from "firebase/firestore";
@@ -7,7 +7,7 @@ import { db } from "../../services/Firebase";
 function StoreItem({item, showEditItem}) {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
-  const [accept, setAccepted] = useState(false);
+  const [loader, setLoader] = useState(false);
   const itemDoc = doc(db, "items", item.item_id);
 
   const editClicked = () => {
@@ -19,17 +19,13 @@ function StoreItem({item, showEditItem}) {
   };
 
   const deleteItem = async () => {
+    setLoader(true);
     await deleteDoc(itemDoc);
+    setLoader(false);
+    toastSuccess("Item Deleted!");
+    setMessage("");
+    setModal(false)
   }
-
-  useEffect(() => {
-    if (accept) {
-      deleteItem();
-      toastSuccess("Item Deleted!");
-      setAccepted(false);
-      setMessage("");
-    }
-  }, [accept]);
 
   return (
     <div>
@@ -44,7 +40,7 @@ function StoreItem({item, showEditItem}) {
         <p className="col-span-2">{item.item_category}</p>
         <p className="col-span-1">₱ {parseFloat(item.item_price).toFixed(2)}</p>
         <p className="col-span-1">
-          {item.item_last_price == ""
+          {item.item_last_price === ""
             ? "N/A"
             : `₱ ${parseFloat(item.item_last_price).toFixed(2)}`}
         </p>
@@ -68,8 +64,9 @@ function StoreItem({item, showEditItem}) {
       {modal && (
         <ConfirmDialog
           setModal={setModal}
-          setAccepted={setAccepted}
           message={message}
+          loader={loader}
+          deleteItem={deleteItem}
         />
       )}
     </div>

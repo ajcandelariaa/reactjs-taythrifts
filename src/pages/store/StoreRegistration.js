@@ -3,6 +3,7 @@ import { db, storage } from "../../services/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
+import ConfirmDialog from "../../helpers/ConfirmDialog";
 
 function StoreRegistration() {
   const [name, setName] = useState("");
@@ -14,6 +15,8 @@ function StoreRegistration() {
   const [address, setAddress] = useState("");
   const [image, setImage] = useState("");
   const [loader, setLoader] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState("");
 
 
   const chooseImage = (e) => {
@@ -33,8 +36,8 @@ function StoreRegistration() {
     return true;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit2 = () => {
+    setModal(false);
     setLoader(true);
 
     if (validation()) {
@@ -94,6 +97,14 @@ function StoreRegistration() {
       toastError("Error Submitting Form3");
       setLoader(false);
     }
+  };
+
+  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setModal(true);
+    setMessage("Are you sure you want to register?");
   };
 
   return (
@@ -221,6 +232,13 @@ function StoreRegistration() {
           </form>
         </div>
       </div>
+      {modal && (
+        <ConfirmDialog
+          setModal={setModal}
+          message={message}
+          deleteItem={handleSubmit2}
+        />
+      )}
     </div>
   );
 }
