@@ -11,12 +11,14 @@ import {
 import { db } from "../../services/Firebase";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
 import NameYourPriceModal from "./NameYourPriceModal";
+import ItemModal from "./ItemModal";
 
 function Item(props) {
   const [isHover, setIsHover] = useState(false);
   const [lastPriceExist, setLastPriceExist] = useState(false);
   const [loader, setLoader] = useState(false);
   const [nameYourPriceModal, setNameYourPriceModal] = useState(false);
+  const [itemModal, setItemModal] = useState(false);
   const accountId = window.sessionStorage.getItem("account_id");
   const cartsCollectionRef = collection(db, "carts");
 
@@ -101,7 +103,6 @@ function Item(props) {
     addToCart();
   };
 
-  
 
   return (
     <div className="shadow-2xl bg-white rounded-xl">
@@ -118,7 +119,7 @@ function Item(props) {
               ? "h-80 object-cover w-full rounded-tr-xl rounded-tl-xl opacity-50"
               : "h-80 object-cover w-full rounded-tr-xl rounded-tl-xl"
           }
-          onClick={() => alert("sample")}
+          onClick={() => setItemModal(true)}
         />
 
         {isHover && (
@@ -184,6 +185,17 @@ function Item(props) {
           item_price={parseFloat(props.item.item_price).toFixed(2)}
           last_price={parseFloat(props.item.item_last_price).toFixed(2)}
           handleAddToCart={handleAddToCart}
+        />
+      )}
+
+      
+      {itemModal && (
+        <ItemModal
+        item={props.item}
+        setItemModal={setItemModal}
+        lastPriceExist={lastPriceExist}
+        loader={loader}
+        handleAddToCart={handleAddToCart}
         />
       )}
     </div>
