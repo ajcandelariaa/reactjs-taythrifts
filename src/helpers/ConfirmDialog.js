@@ -2,9 +2,7 @@ import React from "react";
 
 function ConfirmDialog({ setModal, message, loader, deleteItem, isImportant=false }) {
   const bgClick = () => {
-    if(isImportant){
-
-    } else {
+    if(!isImportant){
       setModal(false)
     }
   }

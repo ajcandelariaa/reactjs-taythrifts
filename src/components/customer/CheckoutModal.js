@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   collection,
-  limit,
-  orderBy,
   query,
-  where,
-  getDocs,
   addDoc,
   updateDoc,
   doc,
+  onSnapshot,
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../../services/Firebase";
@@ -33,9 +30,15 @@ function CheckoutModal({
   const [message, setMessage] = useState("");
   const [firstDate, setFirstDate] = useState("");
   const [lastDate, setLastDate] = useState("");
+  const [storeItems, setStoreItems] = useState([]);
+  const [divHeight, setDivHeight] = useState("");
+  const divRef = useRef();
   const accountId = window.sessionStorage.getItem("account_id");
 
   useEffect(() => {
+    let storeItemsArray = [];
+    const itemsCollectionRef = collection(db, "items");
+
     var today = new Date(),
       date =
         today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear();
@@ -49,6 +52,22 @@ function CheckoutModal({
     setFirstDate(convertDateToString(date));
     setLastDate(convertDateToString(date2));
     setOrderNumber(carts[0].order_number);
+
+    const getItems = () => {
+      const queryStoreData = query(itemsCollectionRef);
+      const unsub = onSnapshot(queryStoreData, (querySnapsot) => {
+        querySnapsot.forEach((doc) => {
+          storeItemsArray.push({
+            item_purchase: doc.data().item_purchase,
+            item_id: doc.id,
+          });
+        });
+        setStoreItems(storeItemsArray);
+      });
+      return () => unsub();
+    };
+
+    getItems();
   }, []);
 
   const updateCart = async () => {
@@ -58,6 +77,15 @@ function CheckoutModal({
       const cartDoc = doc(db, "carts", cart.cart_id);
       updateDoc(cartDoc, {
         checkout: true,
+      });
+
+      storeItems.forEach((item) => {
+        if (item.item_id === cart.item_id) {
+          const itemDoc = doc(db, "items", cart.item_id);
+          updateDoc(itemDoc, {
+            item_purchase: (item.item_purchase += cart.item_quantity),
+          });
+        }
       });
     });
     await addToOrders();
@@ -80,6 +108,7 @@ function CheckoutModal({
 
   const submitClicked = () => {
     setModal(true);
+    setDivHeight(divRef.current.scrollHeight);
     setMessage("Are you sure you want to submit your order?");
   };
 
@@ -89,13 +118,27 @@ function CheckoutModal({
         className="w-full min-h-screen max-h-full fixed left-0 top-0 bot-0 z-10 pt-24 "
         style={{ background: `rgba(0, 0, 0, 0.8)` }}
       ></div>
-      <div className="fixed left-0 top-0 right-0 mt-10 bg-white w-1/2 z-20 rounded-md mx-auto">
-        {
-          modal ? <div className="w-full absolute z-50 h-full style-modal1"></div> : ''
-        }
-        
+      <div
+        className={`fixed left-0 top-0 right-0 mt-10 bg-white w-1/2 z-20 ${
+          modal ? "overflow-hidden" : "overflow-y-scroll"
+        } rounded-md mx-auto`}
+        ref={divRef}
+        style={{ maxHeight: `${window.innerHeight-100}px` }}>
+        {modal ? (
+          <div
+            className="w-full absolute z-50 style-modal1 overflow-auto"
+            style={{ height: `${divHeight}px` }}
+          ></div>
+        ) : (
+          ""
+        )}
+
         <div className="p-5">
-          <h1 className="text-2xl text-center">Billing Summary</h1>
+          <div className="flex justify-center">
+            <p className="text-2xl uppercase border border-sideBarMarketplaceButtonsActive w-fit py-2 px-10">
+              Billing Summary
+            </p>
+          </div>
 
           <div className="border border-gray-300 mt-5 p-3">
             <h1 className="text-xl mb-2">Customer Information</h1>
@@ -121,10 +164,12 @@ function CheckoutModal({
             <h1 className="text-xl mb-2">Cart({carts.length})</h1>
             {carts.map((cart) => {
               return (
-                <div className="flex justify-between px-3">
-                  <p>{cart.item_name}</p>
-                  <p>x{cart.item_quantity}</p>
-                  <p>₱ {parseFloat(cart.total_price).toFixed(2)}</p>
+                <div className="flex flex-row justify-between px-3">
+                  <p className="flex-1">{cart.item_name}</p>
+                  <p className="flex-1 text-center">x{cart.item_quantity}</p>
+                  <p className="flex-1 text-right">
+                    ₱ {parseFloat(cart.total_price).toFixed(2)}
+                  </p>
                 </div>
               );
             })}
