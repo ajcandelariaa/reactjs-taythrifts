@@ -5,7 +5,7 @@ function RegistrationNavbar(props) {
   return (
     <div className="w-full bg-registrationHeader registration-navbar">
       <div>
-        <nav className="container m-auto flex justify-between py-3">
+        <nav className="container m-auto flex justify-between py-5">
           <div className="text-gray-400 flex gap-4 items-center">
             <NavLink className="hover:text-gray-300" to="/">
               <img src={props.link} alt="taythrifts_logo" className="w-12" />
