@@ -1,5 +1,6 @@
 * {
   font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
 }
 
 .home-header {
@@ -116,4 +117,19 @@
   filter: alpha(opacity=100);
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+}
+
+
+/* TESTIMONIALS */
+.testimonials-box:after{
+  content: '';
+  position: relative;
+  left: 0px;
+  bottom: -54px;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-width: 12px 15px;
+  border-top-color: rgb(243, 244, 246);
+  z-index: 0;
 }
