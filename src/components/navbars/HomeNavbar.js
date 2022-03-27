@@ -5,12 +5,12 @@ import { Link } from "react-scroll";
 function HomeNavbar({ navbar }) {
   return (
     <div
-      className={`fixed w-full z-10 ${
-        navbar ? "bg-registrationHeader text-gray-400" : ""
+      className={`fixed w-full z-10 homeNavbar ${
+        navbar ? "bg-registrationHeader text-gray-400 py-5" : "py-7"
       }`}
     >
       <div>
-        <nav className="container m-auto flex justify-between py-7 text-white">
+        <nav className="container m-auto flex justify-between text-white">
           <div className="flex gap-10">
             <Link className="text-xl cursor-pointer" to="home" spy={true} smooth={true} offset={-90} duration={500} >TayThrifts</Link>
             <div className="flex gap-5 items-center">
@@ -33,11 +33,11 @@ function HomeNavbar({ navbar }) {
           </div>
 
           <div className="flex gap-3 items-center text-white">
-            <NavLink className="border py-1 px-8 rounded-lg" to="/login">
-              Login
+            <NavLink className="login-btn relative border py-1 px-8 rounded-lg" to="/login">
+              <span className="z-10 relative">Login</span>
             </NavLink>
-            <NavLink className="border py-1 px-8 rounded-lg" to="/signup">
-              Signup
+            <NavLink className="signup-btn relative border py-1 px-8 rounded-lg" to="/signup">
+              <span className="z-10 relative">Signup</span>
             </NavLink>
           </div>
         </nav>

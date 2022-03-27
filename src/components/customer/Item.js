@@ -12,6 +12,7 @@ import { db } from "../../services/Firebase";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
 import NameYourPriceModal from "./NameYourPriceModal";
 import ItemModal from "./ItemModal";
+import { motion } from "framer-motion";
 
 function Item(props) {
   const [isHover, setIsHover] = useState(false);
@@ -103,9 +104,14 @@ function Item(props) {
     addToCart();
   };
 
-
   return (
-    <div className="shadow-2xl bg-white rounded-xl">
+    <motion.div
+      layout
+      animate={{ opacity: 1, scaleY: 1 }}
+      initial={{ opacity: 0, scaleY: 0 }}
+      exit={{ opacity: 0, scaleY: 0 }}
+      className="shadow-2xl bg-white rounded-xl"
+    >
       <div
         className="bg-itemBgHover rounded-tr-xl rounded-tl-xl relative cursor-pointer"
         onMouseEnter={() => setIsHover(true)}
@@ -188,17 +194,16 @@ function Item(props) {
         />
       )}
 
-      
       {itemModal && (
         <ItemModal
-        item={props.item}
-        setItemModal={setItemModal}
-        lastPriceExist={lastPriceExist}
-        loader={loader}
-        handleAddToCart={handleAddToCart}
+          item={props.item}
+          setItemModal={setItemModal}
+          lastPriceExist={lastPriceExist}
+          loader={loader}
+          handleAddToCart={handleAddToCart}
         />
       )}
-    </div>
+    </motion.div>
   );
 }
 

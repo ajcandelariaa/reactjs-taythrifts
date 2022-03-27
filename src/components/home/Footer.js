@@ -36,14 +36,14 @@ function Footer() {
         </div>
 
         <div className="grid grid-cols-4 text-white text-center w-60 mx-auto mt-12">
-          <i class="fa-brands fa-facebook-f"></i>
-          <i class="fa-brands fa-twitter"></i>
-          <i class="fa-brands fa-snapchat"></i>
-          <i class="fa-brands fa-instagram"></i>
+          <i className="fa-brands fa-facebook-f"></i>
+          <i className="fa-brands fa-twitter"></i>
+          <i className="fa-brands fa-snapchat"></i>
+          <i className="fa-brands fa-instagram"></i>
         </div>
 
         <div className="text-center text-gray-500 text-sm mt-10">
-            <p class="copyright">TayThrifts © 2021</p>
+            <p className="copyright">TayThrifts © 2021</p>
         </div>
       </div>
     </div>

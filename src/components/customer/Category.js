@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Item from "./Item";
+import { motion, AnimatePresence } from "framer-motion";
 
-function Category({items, category, latest, bestSeller}) {
-  const [newItems, setNewItems] = useState([]);
-
-  useEffect(() => {
-    if(category === "Best Seller"){
-      setNewItems(bestSeller);
-    } else if (category === "Latest Products") {
-      setNewItems(latest);
-    } else {
-      setNewItems(items.filter((item) => category === item.item_category))
-    }
-  }, [category]);
-
+function Category({ items, category }) {
   return (
     <div className="container mx-auto px-5">
       <div className="flex justify-center mt-10">
@@ -22,23 +11,13 @@ function Category({items, category, latest, bestSeller}) {
         </p>
       </div>
 
-      <div className="grid grid-cols-4 gap-7 my-10">
-        {category === "All Products" ? (
-          <>
-            {items.length === 0
-              ? "No Items for " + category + " Yet"
-              : items.map((item) => (
-                  <Item item={item} key={item.item_id} />
-                ))}
-          </>
-        ) : (
-          <>
-            {newItems.length === 0
-              ? "No Items for " + category + " Yet"
-              : newItems.map((item) => <Item item={item} key={item.item_id} />)}
-          </>
-        )}
-      </div>
+      <motion.div layout className="grid grid-cols-4 gap-7 my-10">
+        <AnimatePresence>
+          {items.length === 0
+            ? "No Items for " + category + " Yet"
+            : items.map((item) => <Item item={item} key={item.item_id} />)}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

@@ -13,6 +13,7 @@ import { db } from "../../services/Firebase";
 
 function Marketplace() {
   const [category, setCategory] = useState("All Products");
+  const [filters, setFilters] = useState([]);
   const [items, setItems] = useState([]);
   const [latest, setLatest] = useState([]);
   const [bestSeller, setBestSeller] = useState([]);
@@ -30,7 +31,7 @@ function Marketplace() {
     const storesCollectionRef = collection(db, "stores");
     let storesArray = [];
 
-    const getItems1 = () => {
+    const getStores = () => {
       const queryStoreData = query(storesCollectionRef);
       const unsub = onSnapshot(queryStoreData, (querySnapsot) => {
         querySnapsot.forEach((doc) => {
@@ -40,7 +41,7 @@ function Marketplace() {
       return () => unsub();
     };
 
-    const getItems2 = () => {
+    const getAllProducts = () => {
       const queryItemData = query(
         itemsCollectionRef,
         orderBy("item_price", "asc")
@@ -79,15 +80,16 @@ function Marketplace() {
           });
         });
         setItems(itemsArray);
+        setFilters(itemsArray);
         setCountAll(itemsArray.length);
       });
       return () => unsub();
     };
-    const getItems3 = () => {
+    const getBestSellers = () => {
       const qBestSeller = query(
         itemsCollectionRef,
         where("item_purchase", ">", 0),
-        orderBy("item_purchase", "asc"),
+        orderBy("item_purchase", "desc"),
         limit(10)
       );
       const unsub = onSnapshot(qBestSeller, (querySnapsot) => {
@@ -111,7 +113,7 @@ function Marketplace() {
       return () => unsub();
     };
 
-    const getItems4 = () => {
+    const getLatestProducts = () => {
       const qLatest = query(
         itemsCollectionRef,
         orderBy("created_at", "desc"),
@@ -138,16 +140,21 @@ function Marketplace() {
       return () => unsub();
     };
 
-    getItems1();
-    getItems2();
-    getItems3();
-    getItems4();
+    getStores();
+    getAllProducts();
+    getBestSellers();
+    getLatestProducts();
   }, []);
+  
   return (
     <div className="flex">
       <MarketplaceSidebar
+        items={items}
+        bestSeller={bestSeller}
+        latest={latest}
         category={category}
         setCategory={setCategory}
+        setFilters={setFilters}
         countAll={countAll}
         countLatest={countLatest}
         countBestSeller={countBestSeller}
@@ -159,7 +166,7 @@ function Marketplace() {
       />
       <Category
         category={category}
-        items={items}
+        items={filters}
         latest={latest}
         bestSeller={bestSeller}
       />

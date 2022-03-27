@@ -133,3 +133,27 @@
   border-top-color: rgb(243, 244, 246);
   z-index: 0;
 }
+
+/* ANIMATIONS */
+.homeNavbar{
+  transition: background .7s, padding .4s;
+}
+
+.login-btn:after,
+.signup-btn:after,
+.shop-btn:after{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  border-radius: 8px;
+  background: #074561;
+  transition: all .35s;
+}
+.login-btn:hover:after,
+.signup-btn:hover:after,
+.shop-btn:hover:after{
+  width: 100%;
+}

@@ -36,10 +36,11 @@ function Home() {
               enabling you to create any Shopping experience with confidence.
             </p>
             <Link
-              className="text-gray-300 border py-2 px-4 rounded-lg"
+              className="shop-btn relative text-gray-300 border py-2 px-4 rounded-lg"
               to="/login"
             >
-              <i class="fas fa-shopping-cart mr-2"></i>Shop
+            <span className="z-10 relative"><i className="fas fa-shopping-cart mr-2"></i>Shop</span>
+              
             </Link>
           </div>
           <div className="h-familyShopping">
@@ -47,6 +48,7 @@ function Home() {
           </div>
         </div>
       </div>
+      
       {/* <Trends /> */}
       <Highlight />
       <Features />

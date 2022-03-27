@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function MarketplaceSidebar({
+  items,
+  bestSeller,
+  latest,
   category, 
   setCategory,
+  setFilters,
   countAll,
   countLatest,
   countBestSeller,
@@ -10,17 +14,20 @@ function MarketplaceSidebar({
   countPants,
   countShorts,
   countDresses,
-  countOthers
+  countOthers,
 }) {
 
-  const setTops = () => { setCategory("Tops"); };
-  const setPants = () => { setCategory("Pants"); };
-  const setShorts = () => { setCategory("Shorts"); };
-  const setDresses = () => { setCategory("Dresses"); };
-  const setOthers = () => { setCategory("Others"); };
-  const setLatestProducts = () => { setCategory("Latest Products"); };
-  const setBestSeller = () => { setCategory("Best Seller"); };
-  const setAllProducts = () => { setCategory("All Products"); };
+  useEffect(() => {
+    if(category === "Best Seller"){
+      setFilters(bestSeller);
+    } else if (category === "Latest Products") {
+      setFilters(latest);
+    } else if(category === "All Products"){
+      setFilters(items);
+    } else {
+      setFilters(items.filter((item) => category === item.item_category))
+    }
+  },[category, items, setFilters])
 
   return (
     <div className="bg-sideBarMarketplace min-h-screen max-h-full">
@@ -33,7 +40,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setAllProducts}
+          onClick={() => setCategory("All Products")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countAll}
@@ -48,7 +55,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setLatestProducts}
+          onClick={() => setCategory("Latest Products")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countLatest}
@@ -63,7 +70,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setBestSeller}
+          onClick={() => setCategory("Best Seller")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countBestSeller}
@@ -78,7 +85,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setTops}
+          onClick={() => setCategory("Tops")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countTops}
@@ -93,7 +100,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setPants}
+          onClick={() => setCategory("Pants")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countPants}
@@ -108,7 +115,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setShorts}
+          onClick={() => setCategory("Shorts")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countShorts}
@@ -123,7 +130,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setDresses}
+          onClick={() => setCategory("Dresses")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countDresses}
@@ -138,7 +145,7 @@ function MarketplaceSidebar({
               ? "bg-sideBarMarketplaceButtonsActive"
               : "hover:bg-sideBarMarketplaceButtonsHover bg-sideBarMarketplaceButtons")
           }
-          onClick={setOthers}
+          onClick={() => setCategory("Others")}
         >
           <div className="bg-circleCartBg w-7 h-7 rounded-full text-xs grid grid-cols-1 justify-items-center items-center">
             {countOthers}
