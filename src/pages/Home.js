@@ -47,7 +47,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <Trends />
+      {/* <Trends /> */}
       <Highlight />
       <Features />
       <Testimonials />

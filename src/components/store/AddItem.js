@@ -28,6 +28,9 @@ function AddItem() {
   };
 
   const validation = () => {
+    if(lastPrice !== ""){
+      setLastPrice(Number(lastPrice))
+    }
     return true;
   };
 
@@ -53,7 +56,7 @@ function AddItem() {
               item_name: name,
               item_desc: desc,
               item_price: Number(actualPrice),
-              item_last_price: Number(lastPrice),
+              item_last_price: lastPrice,
               item_category: category,
               item_purchase: 0,
               item_imageUrl: url,
@@ -66,7 +69,7 @@ function AddItem() {
               setDesc("");
               setActualPrice("");
               setLastPrice("");
-              setCategory("");
+              setCategory("Tops");
               setImage(null);
               document.getElementById("previewImg").src='../images/defaultImage.png';
               document.getElementById("image").value = null;
@@ -93,7 +96,7 @@ function AddItem() {
         <form onSubmit={handleSubmit}>
           <div className="w-1/2 mt-8 mx-auto pr-10 pl-5">
             <div className="grid grid-cols-regForm gap-6 items-center mt-5 w-full">
-              <label className="text-right">Name</label>
+              <label className="text-right">Name <span className="text-red-600">*</span></label>
               <input
                 type="text"
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -103,7 +106,7 @@ function AddItem() {
               />
             </div>
             <div className="grid grid-cols-regForm gap-6 items-center mt-5 w-full">
-              <label className="text-right">Category</label>
+              <label className="text-right">Category <span className="text-red-600">*</span></label>
               <select
                 className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
                 value={category}
@@ -117,7 +120,7 @@ function AddItem() {
               </select>
             </div>
             <div className="grid grid-cols-regForm gap-6 items-center mt-5 w-full">
-              <label className="text-right">Actual Price</label>
+              <label className="text-right">Actual Price <span className="text-red-600">*</span></label>
               <input
                 type="number"
                 min="0"
@@ -140,17 +143,17 @@ function AddItem() {
               />
             </div>
             <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-              <label className="text-right">Description</label>
-              <input
+              <label className="text-right">Description <span className="text-red-600">*</span></label>
+              <textarea
                 type="text"
-                className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                className="w-full border border-gray-300 rounded-md h-14 px-3 outline-loginForm text-sm text-gray-700"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 required
               />
             </div>
             <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-              <label className="text-right">Image</label>
+              <label className="text-right">Image <span className="text-red-600">*</span></label>
               <input
                 type="file"
                 className="w-full border pt-1 border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"

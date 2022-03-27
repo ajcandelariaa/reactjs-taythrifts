@@ -14,9 +14,9 @@ function HomeNavbar({ navbar }) {
           <div className="flex gap-10">
             <Link className="text-xl cursor-pointer" to="home" spy={true} smooth={true} offset={-90} duration={500} >TayThrifts</Link>
             <div className="flex gap-5 items-center">
-              <Link to="trends" spy={true} smooth={true} offset={-90} duration={500} className="opacity-50 hover:opacity-75 cursor-pointer">
+              {/* <Link to="trends" spy={true} smooth={true} offset={-90} duration={500} className="opacity-50 hover:opacity-75 cursor-pointer">
                 Trends
-              </Link>
+              </Link> */}
               <Link to="highlight" spy={true} smooth={true} offset={-90} duration={500} className="opacity-50 hover:opacity-75 cursor-pointer">
                 Highlight
               </Link>

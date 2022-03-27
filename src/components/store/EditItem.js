@@ -39,6 +39,9 @@ function EditItem({ showDefault, itemId }) {
   };
 
   const validation = () => {
+    if(lastPrice !== ""){
+      setLastPrice(Number(lastPrice))
+    }
     return true;
   };
 
@@ -47,7 +50,7 @@ function EditItem({ showDefault, itemId }) {
       item_name: name,
       item_desc: desc,
       item_price: Number(actualPrice),
-      item_last_price: Number(lastPrice),
+      item_last_price: lastPrice,
       item_category: category,
     }).then(() => {
       toastSuccess("Item Updated!");
@@ -60,7 +63,7 @@ function EditItem({ showDefault, itemId }) {
     await updateDoc(docRef, {
       item_name: name,
       item_desc: desc,
-      item_price: actualPrice,
+      item_price: Number(actualPrice),
       item_last_price: lastPrice,
       item_category: category,
       item_imageUrl: url,
@@ -161,11 +164,11 @@ function EditItem({ showDefault, itemId }) {
                 onChange={(e) => setLastPrice(e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-regForm gap-6 items-center mt-5">
+            <div className="grid grid-cols-regForm gap-6 mt-5">
               <label className="text-right">Description</label>
-              <input
+              <textarea
                 type="text"
-                className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
+                className="w-ful border border-gray-300 rounded-md h-14 px-3 outline-loginForm text-sm text-gray-700"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 required

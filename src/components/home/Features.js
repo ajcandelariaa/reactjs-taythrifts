@@ -2,7 +2,7 @@ import React from "react";
 
 function Features() {
   return (
-    <div className="features home-header py-16">
+    <div className="features home-header py-20">
       <div className="container mx-auto">
         <div className="text-center">
           <h2 className="text-3xl text-white">Features</h2>

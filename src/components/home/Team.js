@@ -3,7 +3,7 @@ import React from "react";
 function Team() {
   return (
     <div className="team bg-gray-100">
-      <div className="container mx-auto py-14">
+      <div className="container mx-auto py-20">
         <h1 className="text-4xl text-center mb-10">Team</h1>
         <p className="w-4/12 mx-auto mt-10 text-center text-gray-700">
           We are AltWAV, a Philippine based company who is aspiring to be the

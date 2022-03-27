@@ -14,7 +14,6 @@ module.exports = {
       colors: {
         loginForm: '#5a83d8',
         btnLoginHover: '#4c6eb1',
-        homePage: 'linear-gradient(135deg, #172a74, #21a9af)',
         registrationHeader: '#04293A',
         regFormBg: '#f3f3f3',
         footerBg: '#282d32',

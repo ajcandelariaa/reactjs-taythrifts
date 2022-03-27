@@ -14,6 +14,7 @@ function ConfirmDialog({ setModal, message, loader, deleteItem, isImportant=fals
         
       ></div>
       <div className={`fixed left-0 top-0 right-0 mt-10 bg-white w-96 border ${isImportant ? 'z-40' : 'z-20' } border-gray-300 rounded-md text-center mx-auto p-5`}>
+        <img src="../images/alert.png" className="w-32 h-32 mx-auto mb-5" />
         <p>{message}</p>
         <div className="mt-5">
           {loader ? (

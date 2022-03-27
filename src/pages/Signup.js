@@ -20,8 +20,8 @@ function Signup() {
             Trends!
           </p>
           <p>
-            <Link className="hover:underline" to="/signup-store">
-              Sign up as Store <i className="fas fa-chevron-right"></i>
+            <Link className="hover:underline" to="/signup-customer">
+              Sign up as Customer <i className="fas fa-chevron-right"></i>
             </Link>
           </p>
         </div>
