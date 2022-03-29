@@ -1,18 +1,69 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-function ItemModal({ item, setItemModal, lastPriceExist, loader, handleAddToCart }) {
+function ItemModal({
+  item,
+  setItemModal,
+  lastPriceExist,
+  loader,
+  handleAddToCart,
+}) {
   return (
     <div>
-      <div
+      <motion.div
+        key={"modal 1"}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          transition: {
+            duration: 0.3,
+          },
+        }}
+        exit={{
+          opacity: 0,
+          transition: {
+            delay: 0.3,
+          },
+        }}
         className="w-full min-h-screen max-h-full fixed left-0 top-0 bot-0 z-10 pt-24 "
         style={{ background: `rgba(0, 0, 0, 0.8)` }}
         onClick={() => setItemModal(false)}
-      ></div>
-      <div
-        className="fixed left-0 top-0 right-0 mt-10 bg-gray-100 w-1/2 border z-20 border-gray-300 rounded-md mx-auto p-5 max-h-3/5 overflow-y-scroll"
+      ></motion.div>
+      <motion.div
+        key={"modal 2"}
+        initial={{ scale: 0 }}
+        animate={{
+          scale: 1,
+          transition: {
+            duration: 0.3,
+          },
+        }}
+        exit={{
+          scale: 0,
+          transition: {
+            delay: 0.3,
+          },
+        }}
+        className="fixed left-0 top-0 right-0 mt-10 bg-gray-100 w-1/2 border z-20 border-gray-300 rounded-md mx-auto p-5 max-h-3/5 overflow-x-hidden overflow-y-scroll"
         style={{ maxHeight: `${window.innerHeight - 100}px` }}
       >
-        <div className="flex gap-5">
+        <motion.div
+          key={"modal 3"}
+          className="flex gap-5"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{
+            x: 0,
+            opacity: 1,
+            transition: {
+              delay: 0.3,
+              duration: 0.3,
+            },
+          }}
+          exit={{
+            x: 100,
+            opacity: 0,
+          }}
+        >
           <div className="flex-1 pr-5 border border-t-0 border-b-0 border-l-0 border-r-gray-300 ">
             <img
               src={item.item_imageUrl}
@@ -51,20 +102,24 @@ function ItemModal({ item, setItemModal, lastPriceExist, loader, handleAddToCart
                     className={`text-black bg-gray-300 rounded-3xl w-52 py-2 cursor-wait`}
                     disabled
                   >
-                    <i class="fa-solid fa-cart-shopping mr-2"></i> Adding...
+                    <i className="fa-solid fa-cart-shopping mr-2"></i> Adding...
                   </button>
                 </>
               ) : (
                 <>
                   <button
                     className="bg-sideBarMarketplaceButtonsActive rounded-xl w-52 py-2 text-white hover:bg-sideBarMarketplaceButtons"
-                    onClick={() => handleAddToCart(item.item_price)}><i class="fa-solid fa-cart-shopping mr-2"></i> Add to Cart </button>
+                    onClick={() => handleAddToCart(item.item_price)}
+                  >
+                    <i className="fa-solid fa-cart-shopping mr-2"></i> Add to
+                    Cart{" "}
+                  </button>
                 </>
               )}
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { db } from "../../services/Firebase";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
 import { convertDateToString } from "../../helpers/GetStringDate";
 import ConfirmDialog from "../../helpers/ConfirmDialog";
+import { motion, AnimatePresence } from "framer-motion";
 
 function CheckoutModal({
   setCheckoutModal,
@@ -114,16 +115,40 @@ function CheckoutModal({
 
   return (
     <div>
-      <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          transition: {
+            duration: 0.3,
+          },
+        }}
+        exit={{
+          opacity: 0,
+          transition: {
+            duration: 0.3,
+          },
+        }}
         className="w-full min-h-screen max-h-full fixed left-0 top-0 bot-0 z-10 pt-24 "
         style={{ background: `rgba(0, 0, 0, 0.8)` }}
-      ></div>
-      <div
+      ></motion.div>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{
+          scale: 1,
+          transition: {
+            duration: 0.2,
+          },
+        }}
+        exit={{
+          scale: 0,
+        }}
         className={`fixed left-0 top-0 right-0 mt-10 bg-white w-1/2 z-20 ${
           modal ? "overflow-hidden" : "overflow-y-scroll"
         } rounded-md mx-auto`}
         ref={divRef}
-        style={{ maxHeight: `${window.innerHeight-100}px` }}>
+        style={{ maxHeight: `${window.innerHeight - 100}px` }}
+      >
         {modal ? (
           <div
             className="w-full absolute z-50 style-modal1 overflow-auto"
@@ -216,17 +241,19 @@ function CheckoutModal({
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {modal && (
-        <ConfirmDialog
-          setModal={setModal}
-          message={message}
-          loader={loader}
-          deleteItem={updateCart}
-          isImportant={true}
-        />
-      )}
+      <AnimatePresence>
+        {modal && (
+          <ConfirmDialog
+            setModal={setModal}
+            message={message}
+            loader={loader}
+            deleteItem={updateCart}
+            isImportant={true}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

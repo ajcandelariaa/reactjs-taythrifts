@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 import ConfirmDialog from "../../helpers/ConfirmDialog";
+import { AnimatePresence } from "framer-motion";
+import { toastSuccess } from "../../helpers/Toaster";
 
 function StoreNavbar(props) {
   const [modal, setModal] = useState(false);
@@ -14,12 +16,13 @@ function StoreNavbar(props) {
   const logout = () => {
     window.sessionStorage.clear();
     navigate("/login", { replace: true });
+    toastSuccess("Logged Out Succesfully!")
   };
 
   const logoutClicked = () => {
     setModal(true);
     setMessage("Are you sure you want to logout?");
-  }
+  };
 
   useEffect(() => {
     const accountId = window.sessionStorage.getItem("account_id");
@@ -28,7 +31,6 @@ function StoreNavbar(props) {
       setImageUrl(doc.data().imageUrl);
       setNickname(doc.data().name);
     });
-
   }, []);
 
   return (
@@ -45,10 +47,7 @@ function StoreNavbar(props) {
             <NavLink className="hover:text-gray-300" to={"/store/profile"}>
               Profile
             </NavLink>
-            <NavLink
-              className="hover:text-gray-300"
-              to="/store/transactions"
-            >
+            <NavLink className="hover:text-gray-300" to="/store/transactions">
               Transactions
             </NavLink>
           </div>
@@ -61,19 +60,24 @@ function StoreNavbar(props) {
               />
               <p>{nickname}</p>
             </div>
-            <p className="hover:text-gray-300 cursor-pointer" onClick={logoutClicked}>
+            <p
+              className="hover:text-gray-300 cursor-pointer"
+              onClick={logoutClicked}
+            >
               Logout
             </p>
           </div>
         </nav>
       </div>
-      {modal && (
-        <ConfirmDialog
-          setModal={setModal}
-          message={message}
-          deleteItem={logout}
-        />
-      )}
+      <AnimatePresence>
+        {modal && (
+          <ConfirmDialog
+            setModal={setModal}
+            message={message}
+            deleteItem={logout}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

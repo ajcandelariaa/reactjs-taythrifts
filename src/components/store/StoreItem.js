@@ -4,8 +4,9 @@ import { toastSuccess } from "../../helpers/Toaster";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 import { convertDateToString } from "../../helpers/GetStringDate";
+import { AnimatePresence } from "framer-motion";
 
-function StoreItem({item, showEditItem}) {
+function StoreItem({ item, showEditItem }) {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [loader, setLoader] = useState(false);
@@ -25,8 +26,8 @@ function StoreItem({item, showEditItem}) {
     setLoader(false);
     toastSuccess("Item Deleted!");
     setMessage("");
-    setModal(false)
-  }
+    setModal(false);
+  };
 
   return (
     <div>
@@ -46,9 +47,9 @@ function StoreItem({item, showEditItem}) {
             : `₱ ${parseFloat(item.item_last_price).toFixed(2)}`}
         </p>
         <p className="col-span-2">
-          {convertDateToString(new Date(item.created_at.seconds * 1000).toLocaleDateString(
-            "en-US"
-          ))}
+          {convertDateToString(
+            new Date(item.created_at.seconds * 1000).toLocaleDateString("en-US")
+          )}
         </p>
         <p className="col-span-1 flex gap-2">
           <i
@@ -61,15 +62,16 @@ function StoreItem({item, showEditItem}) {
           ></i>
         </p>
       </div>
-
-      {modal && (
-        <ConfirmDialog
-          setModal={setModal}
-          message={message}
-          loader={loader}
-          deleteItem={deleteItem}
-        />
-      )}
+      <AnimatePresence>
+        {modal && (
+          <ConfirmDialog
+            setModal={setModal}
+            message={message}
+            loader={loader}
+            deleteItem={deleteItem}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

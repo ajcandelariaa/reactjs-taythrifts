@@ -3,6 +3,7 @@ import { collection, query, where, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/Firebase";
 import CartItem from "../../components/customer/CartItem";
 import CheckoutModal from "../../components/customer/CheckoutModal";
+import { AnimatePresence } from "framer-motion";
 
 function CustomerCart() {
   const [carts, setCarts] = useState([]);
@@ -91,7 +92,12 @@ function CustomerCart() {
     <div className="container mx-auto">
       <div className="w-3/4 grid grid-cols-3 mx-auto mt-5 mb-10 gap-x-3">
         <div className="col-span-1 ">
-          <form onSubmit={(e) => { e.preventDefault(); setCheckoutModal(true); }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setCheckoutModal(true);
+            }}
+          >
             <div className="p-5 shadow-xl bg-gray-100">
               <p className="text-xl">Summary</p>
               <div className="grid grid-cols-2 mt-5">
@@ -174,9 +180,7 @@ function CustomerCart() {
                 Checkout
               </button>
             ) : (
-              <button
-                className="uppercase text-white bg-blue-600 px-4 py-2 w-full rounded-md mt-5"
-              >
+              <button className="uppercase text-white bg-blue-600 px-4 py-2 w-full rounded-md mt-5">
                 Checkout
               </button>
             )}
@@ -193,20 +197,21 @@ function CustomerCart() {
           </div>
         </div>
       </div>
-
-      {checkoutModal && (
-        <CheckoutModal
-          setCheckoutModal={setCheckoutModal}
-          carts={carts}
-          overallAmount={overallAmount}
-          payment={payment}
-          setPayment={setPayment}
-          fullname={fullname}
-          contactNumber={contactNumber}
-          emailAddress={emailAddress}
-          address={address}
-        />
-      )}
+      <AnimatePresence>
+        {checkoutModal && (
+          <CheckoutModal
+            setCheckoutModal={setCheckoutModal}
+            carts={carts}
+            overallAmount={overallAmount}
+            payment={payment}
+            setPayment={setPayment}
+            fullname={fullname}
+            contactNumber={contactNumber}
+            emailAddress={emailAddress}
+            address={address}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

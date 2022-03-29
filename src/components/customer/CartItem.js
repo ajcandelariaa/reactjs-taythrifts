@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { db } from "../../services/Firebase";
 import { toastSuccess } from "../../helpers/Toaster";
 import ConfirmDialog from "../../helpers/ConfirmDialog";
+import { AnimatePresence } from "framer-motion";
 
 function CartItem({ cart }) {
   const [modal, setModal] = useState(false);
@@ -16,7 +17,7 @@ function CartItem({ cart }) {
     setLoader(false);
     toastSuccess("Item Deleted!");
     setMessage("");
-    setModal(false)
+    setModal(false);
   };
 
   const updateCart = async (newQuant, newTotalPrice, message) => {
@@ -29,17 +30,25 @@ function CartItem({ cart }) {
   };
 
   const decreaseQuantity = () => {
-    updateCart(cart.item_quantity - 1, cart.total_price - cart.item_price, "Quantity Decreased!");
+    updateCart(
+      cart.item_quantity - 1,
+      cart.total_price - cart.item_price,
+      "Quantity Decreased!"
+    );
   };
 
   const increaseQuantity = () => {
-    updateCart(cart.item_quantity + 1, cart.total_price + cart.item_price, "Quantity Increased!");
+    updateCart(
+      cart.item_quantity + 1,
+      cart.total_price + cart.item_price,
+      "Quantity Increased!"
+    );
   };
 
   const removeItemCliked = () => {
-      setModal(true);
-      setMessage("Are you sure you want to remove this item from your cart?");
-  }
+    setModal(true);
+    setMessage("Are you sure you want to remove this item from your cart?");
+  };
 
   return (
     <div className="my-4">
@@ -62,19 +71,26 @@ function CartItem({ cart }) {
           <div className="my-5">
             <div className="flex">
               <p className="pr-2">Quantity: </p>
-              {
-                  cart.item_quantity === 1 ? <>
-                    <button className="bg-gray-500 text-white w-5 cursor-not-allowed" disabled> - </button>
-                  </> : <>
-                  
-              <button
-                className="bg-gray-700 text-white w-5"
-                onClick={decreaseQuantity}
-              >
-                -
-              </button>
-                  </>
-              }
+              {cart.item_quantity === 1 ? (
+                <>
+                  <button
+                    className="bg-gray-500 text-white w-5 cursor-not-allowed"
+                    disabled
+                  >
+                    {" "}
+                    -{" "}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="bg-gray-700 text-white w-5"
+                    onClick={decreaseQuantity}
+                  >
+                    -
+                  </button>
+                </>
+              )}
               <div className="w-8">
                 <p className="bg-gray-300 text-center">{cart.item_quantity}</p>
               </div>
@@ -91,21 +107,26 @@ function CartItem({ cart }) {
             <p>Total Price: ₱ {parseFloat(cart.total_price).toFixed(2)}</p>
           </div>
           <div className="">
-            <p className="text-red-500 hover:underline cursor-pointer" onClick={removeItemCliked}>
+            <p
+              className="text-red-500 hover:underline cursor-pointer"
+              onClick={removeItemCliked}
+            >
               <i className="fa-solid fa-trash mr-2"></i>Remove Item
             </p>
           </div>
         </div>
       </div>
 
-      {modal && (
-        <ConfirmDialog
-          setModal={setModal}
-          message={message}
-          loader={loader}
-          deleteItem={deleteCart}
-        />
-      )}
+      <AnimatePresence>
+        {modal && (
+          <ConfirmDialog
+            setModal={setModal}
+            message={message}
+            loader={loader}
+            deleteItem={deleteCart}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

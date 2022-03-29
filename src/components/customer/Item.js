@@ -12,7 +12,7 @@ import { db } from "../../services/Firebase";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
 import NameYourPriceModal from "./NameYourPriceModal";
 import ItemModal from "./ItemModal";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Item(props) {
   const [isHover, setIsHover] = useState(false);
@@ -110,6 +110,7 @@ function Item(props) {
       animate={{ opacity: 1, scaleY: 1 }}
       initial={{ opacity: 0, scaleY: 0 }}
       exit={{ opacity: 0, scaleY: 0 }}
+      transition={{ duration: 0.3 }}
       className="shadow-2xl bg-white rounded-xl"
     >
       <div
@@ -194,15 +195,18 @@ function Item(props) {
         />
       )}
 
-      {itemModal && (
-        <ItemModal
-          item={props.item}
-          setItemModal={setItemModal}
-          lastPriceExist={lastPriceExist}
-          loader={loader}
-          handleAddToCart={handleAddToCart}
-        />
-      )}
+      <AnimatePresence>
+        {itemModal && (
+          <ItemModal
+            item={props.item}
+            itemModal={itemModal}
+            setItemModal={setItemModal}
+            lastPriceExist={lastPriceExist}
+            loader={loader}
+            handleAddToCart={handleAddToCart}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { toastSuccess, toastError } from "../../helpers/Toaster";
 import ConfirmDialog from "../../helpers/ConfirmDialog";
+import { AnimatePresence } from "framer-motion";
 
 function StoreRegistration() {
   const [name, setName] = useState("");
@@ -17,7 +18,6 @@ function StoreRegistration() {
   const [loader, setLoader] = useState(false);
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
-
 
   const chooseImage = (e) => {
     var reader = new FileReader();
@@ -99,8 +99,6 @@ function StoreRegistration() {
     }
   };
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setModal(true);
@@ -119,7 +117,9 @@ function StoreRegistration() {
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-x-10 pr-10 pl-5">
               <div className="grid grid-cols-regForm gap-6 items-center mt-5 w-full">
-                <label className="text-right">Store Name <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Store Name <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -129,7 +129,9 @@ function StoreRegistration() {
                 />
               </div>
               <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-                <label className="text-right">Store Address <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Store Address <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -139,7 +141,9 @@ function StoreRegistration() {
                 />
               </div>
               <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-                <label className="text-right">Email Address <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Email Address <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -149,7 +153,9 @@ function StoreRegistration() {
                 />
               </div>
               <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-                <label className="text-right">Contact Number <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Contact Number <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -159,7 +165,9 @@ function StoreRegistration() {
                 />
               </div>
               <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-                <label className="text-right">Username <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Username <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -169,7 +177,9 @@ function StoreRegistration() {
                 />
               </div>
               <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-                <label className="text-right">Password <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Password <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="password"
                   className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -180,7 +190,9 @@ function StoreRegistration() {
               </div>
 
               <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-                <label className="text-right">Confirm Password <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Confirm Password <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="password"
                   className="w-full border border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -191,7 +203,9 @@ function StoreRegistration() {
               </div>
 
               <div className="grid grid-cols-regForm gap-6 items-center mt-5">
-                <label className="text-right">Profile Image <span className="text-red-600">*</span></label>
+                <label className="text-right">
+                  Profile Image <span className="text-red-600">*</span>
+                </label>
                 <input
                   type="file"
                   className="w-full border pt-1 border-gray-300 rounded-md h-9 px-3 outline-loginForm text-sm text-gray-700"
@@ -232,13 +246,15 @@ function StoreRegistration() {
           </form>
         </div>
       </div>
-      {modal && (
-        <ConfirmDialog
-          setModal={setModal}
-          message={message}
-          deleteItem={handleSubmit2}
-        />
-      )}
+      <AnimatePresence>
+        {modal && (
+          <ConfirmDialog
+            setModal={setModal}
+            message={message}
+            deleteItem={handleSubmit2}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
