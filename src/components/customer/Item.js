@@ -186,20 +186,22 @@ function Item(props) {
           )}
         </div>
       </div>
-      {nameYourPriceModal && (
-        <NameYourPriceModal
-          setNameYourPriceModal={setNameYourPriceModal}
-          item_price={parseFloat(props.item.item_price).toFixed(2)}
-          last_price={parseFloat(props.item.item_last_price).toFixed(2)}
-          handleAddToCart={handleAddToCart}
-        />
-      )}
+
+      <AnimatePresence>
+        {nameYourPriceModal && (
+          <NameYourPriceModal
+            setNameYourPriceModal={setNameYourPriceModal}
+            item_price={parseFloat(props.item.item_price).toFixed(2)}
+            last_price={parseFloat(props.item.item_last_price).toFixed(2)}
+            handleAddToCart={handleAddToCart}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {itemModal && (
           <ItemModal
             item={props.item}
-            itemModal={itemModal}
             setItemModal={setItemModal}
             lastPriceExist={lastPriceExist}
             loader={loader}
