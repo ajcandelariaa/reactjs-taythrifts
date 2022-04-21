@@ -37,9 +37,10 @@ function StoreItem({ item, showEditItem }) {
           src={item.item_imageUrl}
           alt="sampleItem"
         />
-        <p className="col-span-3">{item.item_name}</p>
+        <p className="col-span-2">{item.item_name}</p>
         <p className="col-span-2 overflow-hidden h-12">{item.item_desc}</p>
         <p className="col-span-1">{item.item_category}</p>
+        <p className="col-span-1">10</p>
         <p className="col-span-1">₱ {parseFloat(item.item_price).toFixed(2)}</p>
         <p className="col-span-1">
           {item.item_last_price === ""

@@ -9,7 +9,8 @@ function NameYourPriceModal({
 }) {
   const [price, setPrice] = useState(item_price);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     handleAddToCart(price);
     setNameYourPriceModal(false);
   };

@@ -6,9 +6,10 @@ function Inventory({items, showEditItem}) {
     <div className="mt-5">
       <div className="grid grid-cols-12 gap-4 w-full justify-items-center items-center font-semibold bg-inventoryHeaderBg text-white py-5">
         <p className="col-span-1">Image</p>
-        <p className="col-span-3">Product Name</p>
+        <p className="col-span-2">Product Name</p>
         <p className="col-span-2">Description</p>
         <p className="col-span-1">Category</p>
+        <p className="col-span-1">Quantity</p>
         <p className="col-span-1">Actual Price</p>
         <p className="col-span-1">Last Price</p>
         <p className="col-span-2">Created At</p>
